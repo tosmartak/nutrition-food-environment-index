@@ -98,11 +98,7 @@ def add_market_level_diversity_score(
         raise KeyError(f"Mapped dataframe column(s) not found: {missing_cols}")
 
     new_df = df.copy()
-    new_df[mapped_cols] = (
-        new_df[mapped_cols]
-        .fillna(fillna_value)
-        .infer_objects(copy=False)
-    )
+    new_df[mapped_cols] = new_df[mapped_cols].astype("Float64").fillna(fillna_value)
 
     group_scores = pd.DataFrame(index=new_df.index)
 
