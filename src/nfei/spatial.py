@@ -3,6 +3,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 import geopandas as gpd
+from pyproj import Transformer
 
 
 def haversine_vectorized(lon1, lat1, lon2, lat2) -> np.ndarray:
@@ -123,6 +124,24 @@ def calc_distance(
 
     return df1
 
+def _estimate_utm_crs_from_lonlat(
+    df: pd.DataFrame,
+    lon_col: str,
+    lat_col: str,
+) -> str:
+    """
+    Estimate a UTM CRS from longitude and latitude columns.
+
+    This avoids relying on GeoPandas estimate_utm_crs(), which may trigger
+    upstream PyProj or NumPy deprecation warnings in some environments.
+    """
+    lon = float(df[lon_col].mean())
+    lat = float(df[lat_col].mean())
+
+    zone = int((lon + 180) // 6) + 1
+    epsg = 32600 + zone if lat >= 0 else 32700 + zone
+
+    return f"EPSG:{epsg}"
 
 def _to_projected_gdf(
     df: pd.DataFrame,
@@ -132,25 +151,43 @@ def _to_projected_gdf(
     projected_crs: str | int | None = None,
 ) -> gpd.GeoDataFrame:
     """
-    Convert a pandas dataframe with coordinate columns to projected GeoDataFrame.
+    Convert a pandas dataframe with coordinate columns to a projected GeoDataFrame.
 
-    If projected_crs is None, an appropriate UTM CRS is estimated automatically.
+    Coordinates are transformed directly with PyProj rather than using
+    GeoDataFrame.to_crs(). This avoids known upstream deprecation warnings that
+    can occur with single-row GeoDataFrames in some NumPy/PyProj combinations.
     """
     missing_cols = [col for col in [lon_col, lat_col] if col not in df.columns]
 
     if missing_cols:
         raise KeyError(f"Missing coordinate column(s): {missing_cols}")
 
-    gdf = gpd.GeoDataFrame(
-        df.copy(),
-        geometry=gpd.points_from_xy(df[lon_col], df[lat_col]),
-        crs=input_crs,
+    if projected_crs is None:
+        projected_crs = _estimate_utm_crs_from_lonlat(
+            df=df,
+            lon_col=lon_col,
+            lat_col=lat_col,
+        )
+
+    transformer = Transformer.from_crs(
+        input_crs,
+        projected_crs,
+        always_xy=True,
     )
 
-    if projected_crs is None:
-        projected_crs = gdf.estimate_utm_crs()
+    projected_points = [
+        transformer.transform(float(lon), float(lat))
+        for lon, lat in zip(df[lon_col], df[lat_col], strict=False)
+    ]
 
-    return gdf.to_crs(projected_crs)
+    x_coords = [point[0] for point in projected_points]
+    y_coords = [point[1] for point in projected_points]
+
+    return gpd.GeoDataFrame(
+        df.copy(),
+        geometry=gpd.points_from_xy(x_coords, y_coords),
+        crs=projected_crs,
+    )
 
 
 def features_proximity_agg(
