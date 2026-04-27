@@ -6,8 +6,6 @@
 ![Research](https://img.shields.io/badge/research--backed-N--FEI-purple)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
-**Nutrition-Sensitive Food Environment Index utilities for Python**
-
 `nfei` is a Python package for computing nutrition-sensitive food environment indicators from vendor survey data, food availability data, and geospatial data. It provides reusable functions for building the indicator components used in the Nutrition-Sensitive Food Environment Index (N-FEI), including food diversity, produce color diversity, vendor availability, vendor density, spatial aggregation, scaling, and validation.
 
 This package is designed for researchers, data scientists, public-health analysts, food-system practitioners, and policy teams who want to move from raw food environment data to transparent, reproducible indicators.
@@ -149,7 +147,7 @@ Expected interpretation:
 
 ---
 
-## 🧱 NFEI package workflow and architecture
+## 🧱 NFEI package architecture
 
 ### 1. Availability Module
 Captures **temporal access to food vendors**
@@ -161,7 +159,6 @@ Reflects real-world accessibility patterns where:
 - Morning to evening has higher weight than night
 - Full-day and full-week operations imply maximum availability
 
----
 
 ### 2. Diversity Module
 Captures **nutritional quality of the food environment**
@@ -175,7 +172,6 @@ Includes:
 Key idea:
 > Food diversity is a proxy for nutrient adequacy and malnutrition risk.
 
----
 
 ### 3. Color Diversity Module
 Captures **bioactive nutrient diversity** using ProColor
@@ -185,7 +181,6 @@ Captures **bioactive nutrient diversity** using ProColor
 
 This complements traditional food group diversity by capturing **micronutrient richness**
 
----
 
 ### 4. Density Module
 Captures **market structure and saturation**
@@ -197,7 +192,6 @@ Used to assess:
 - Over-concentration vs under-service
 - Accessibility at population level
 
----
 
 ### 5. Spatial Module
 Captures **environmental exposure**
@@ -208,7 +202,6 @@ Captures **environmental exposure**
 This is critical because:
 > Consumers interact with food environments, not just individual vendors
 
----
 
 ### 6. Scaling Module
 Handles **normalization and comparability**
@@ -216,7 +209,6 @@ Handles **normalization and comparability**
 - Aligns indicators to common scale (0–10)
 - Supports inversion (e.g., unhealthy food)
 
----
 
 ### 7. Validation Module
 Ensures **data quality and robustness**
@@ -226,7 +218,9 @@ Ensures **data quality and robustness**
 
 ---
 
-Typical workflow:
+## N-FEI specific indicator construction logic
+
+An N-FEI style indicator construction workflow usually involves these steps:
 
 1. Start with raw vendor, food availability, sanitation, and spatial data.
 2. Validate coordinate and required input columns.
@@ -235,12 +229,6 @@ Typical workflow:
 5. Scale indicators to a common range.
 6. Aggregate selected normalized indicators into a composite score.
 7. Compute final NFEI score
-
----
-
-## N-FEI specific indicator construction logic
-
-An N-FEI style indicator construction workflow usually involves these steps:
 
 ### Step 1: Compute raw indicators
 
@@ -360,7 +348,9 @@ nutrition-food-environment-index/
 
 If you use this package or the N-FEI methodology, please cite:
 
-**Akingbemisilu et al. (2025). The Nutrition-Sensitive Food Environment Index: A Comprehensive Approach to Assessing Food Environments in Association with Health Risks for Policy Decision Making. Journal of Sustainability. https://doi.org/10.55845/jos-2025-1116**
+```text
+Akingbemisilu, T. H., Jordan, I., Asiimwe, R., Bodjrenou, S., Nabuuma, D., Odongo, N., Onyango, K. O., Teferi, E., Tokeshi, C., Lundy, M., & Termote, C. (2025). The Nutrition-Sensitive Food Environment Index: A Comprehensive Approach to Assessing Food Environments in Association with Health Risks for Policy Decision Making. Journal of Sustainability, 1(1). https://doi.org/10.55845/jos-2025-1116
+```
 
 DOI: https://doi.org/10.55845/jos-2025-1116
 
