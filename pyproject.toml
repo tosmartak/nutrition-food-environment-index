@@ -36,6 +36,13 @@ dev = [
   "ipykernel>=6.0"
 ]
 
+docs = [
+  "mkdocs>=1.6",
+  "mkdocs-material>=9.5",
+  "mkdocstrings[python]>=0.26",
+  "mkdocs-jupyter>=0.24"
+]
+
 [project.urls]
 Homepage = "https://github.com/tosmartak/nutrition-food-environment-index"
 Repository = "https://github.com/tosmartak/nutrition-food-environment-index"
