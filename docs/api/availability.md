@@ -1,0 +1,3 @@
+# Availability
+
+::: nfei.availability

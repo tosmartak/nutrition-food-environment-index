@@ -1,0 +1,3 @@
+# Diversity
+
+::: nfei.diversity

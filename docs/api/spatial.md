@@ -1,0 +1,3 @@
+# Spatial
+
+::: nfei.spatial

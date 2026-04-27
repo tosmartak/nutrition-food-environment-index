@@ -1,0 +1,3 @@
+# Density
+
+::: nfei.density
