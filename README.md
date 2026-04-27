@@ -1,89 +1,155 @@
 # 📦 NFEI – Nutrition-Sensitive Food Environment Index (Python Package)
 
-![PyPI](https://img.shields.io/pypi/v/nfei)
 ![Python](https://img.shields.io/badge/python-3.9%2B-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
+![Package](https://img.shields.io/badge/package-nfei-brightgreen)
+![Status](https://img.shields.io/badge/status-active%20development-orange)
+![Research](https://img.shields.io/badge/research--backed-N--FEI-purple)
+![License](https://img.shields.io/badge/license-MIT-lightgrey)
+
+**Nutrition-Sensitive Food Environment Index utilities for Python**
+
+`nfei` is a Python package for computing nutrition-sensitive food environment indicators from vendor survey data, food availability data, and geospatial data. It provides reusable functions for building the indicator components used in the Nutrition-Sensitive Food Environment Index (N-FEI), including food diversity, produce color diversity, vendor availability, vendor density, spatial aggregation, scaling, and validation.
+
+This package is designed for researchers, data scientists, public-health analysts, food-system practitioners, and policy teams who want to move from raw food environment data to transparent, reproducible indicators.
 
 ---
 
-## 🧠 What is the NFEI?
+## 🧠 What is the Nutrition-Sensitive Food Environment Index?
 
-The **Nutrition-Sensitive Food Environment Index (N-FEI)** is a composite index designed to assess food environments through a **nutrition and public health lens**, capturing how food availability, accessibility, infrastructure, and exposure to unhealthy foods interact to influence malnutrition risk.
+The **Nutrition-Sensitive Food Environment Index (N-FEI)** is a composite food environment assessment framework developed to evaluate how the built food environment may support or constrain healthier diets and public-health outcomes. It is designed to assess food environments through a **nutrition and public health lens**, capturing how food availability, accessibility, infrastructure, and exposure to unhealthy foods interact to influence malnutrition risk.
 
 It is grounded in the definition of food environments as:
 
 > “the collective physical, economic, policy, and sociocultural surroundings, opportunities, and conditions that influence people’s food and beverage choices and nutritional status.”
 
-Unlike traditional indices that focus mainly on affordability, the N-FEI integrates:
+The N-FEI expands food environment measurement beyond affordability alone. The index is constructed from **nine indicators**, normalized and aggregated into a **0–10 scale**, where higher values indicate healthier food environments. It focuses on observable features of vendor environments, including:
 
-- Food diversity (dietary adequacy)
-- Spatial accessibility (proximity-based exposure)
-- Vendor availability (temporal access)
-- Infrastructure (water and sanitation)
-- Unhealthy food exposure (risk factors)
+1. **Vendor Healthy Food Diversity Score**, using food groups aligned with the Minimum Dietary Diversity for Women framework.
+2. **Vendor Environment Healthy Food Diversity Score**, capturing what is available around vendors, not only at a single vendor.
+3. **Vendor ProColor Diversity Score**, Fruit and vegetable color diversity reflecting ProColor-style produce diversity.
+4. **Vendor Environment ProColor Diversity Score**, capturing the broader produce-color environment around vendors.
+5. **Access to Water and Sanitation**, especially relevant for informal and mobile food vendors.
+6. **Vendor availability**, measured through daily and weekly operating patterns.
+7. **Vendor density per population**, capturing vendor availability relative to population size.
+8. **Vendor density per square kilometre**, capturing geographic distribution.
+9. **Unhealthy food count**, capturing exposure to selected unhealthy beverages and snacks.
 
-The index is constructed from **nine indicators**, normalized and aggregated into a **0–10 scale**, where higher values indicate healthier food environments.
+The N-FEI methodology was developed and validated using multi-country food environment data. The published paper describes the conceptual basis, indicator selection, spatial logic, sensitivity analysis, validation strategy, and policy relevance of the index.
 
-📄 **Full methodology and validation:**  
+**Methodology paper:**  
 https://doi.org/10.55845/jos-2025-1116
+
+This package does **not** hide the index inside a black-box function. Instead, it exposes the building blocks used to compute the indicators, so users can adapt the workflow to their own study design, data structure, and policy context.
 
 ---
 
-## 🎯 Purpose of this Package
+## 🎯 What this package does
 
-This package provides a **production-ready implementation** of the N-FEI methodology.
+`nfei` helps you:
 
-It is designed to:
+- Compute vendor-level food diversity indicators.
+- Compute produce color diversity indicators.
+- Compute unhealthy beverage, snack, and total unhealthy food counts.
+- Compute daily, weekly, and combined vendor availability.
+- Estimate population covered by radius-based vendor mapping.
+- Compute vendor density by population and land area.
+- Aggregate food environment features within spatial buffers.
+- Calculate nearest distances between food environment features.
+- Scale indicators to a common interpretation range.
+- Detect and correct coordinate outliers using a robust MAD-based approach.
 
-- Translate research methodology into reusable code
-- Standardize indicator computation across datasets
-- Enable scalable, reproducible food environment analysis
-- Reduce reliance on ad-hoc notebooks
+The package is especially useful when your raw survey data contains binary food availability columns, comma-separated produce color fields, vendor operating days or hours, latitude and longitude, vendor type, population denominators, and land-area denominators.
 
 ---
 
 ## ⚙️ Installation
 
+From PyPI, once released:
+
 ```bash
 pip install nfei
 ```
 
-Or locally:
+For local development from the repository root:
 
 ```bash
 pip install -e .
 ```
 
+To run tests:
+
+```bash
+pytest
+```
+
 ---
 
-## 🚀 Quick Start (Core Example)
+## 🚀 Quick start with core example
 
-### Market-Level Diversity Score
+The example below uses **simulated vendor data** to demonstrate the correct implementation of `add_market_level_diversity_score`.
+
+The function expects a dictionary called `food_group_cols`. This dictionary maps each required MLDS food group to either:
+
+- one column name, or
+- a list of column names that should be combined into one food group.
 
 ```python
 import pandas as pd
 import nfei
 
-df = pd.DataFrame({
-    "vendor_id": [1, 2],
-    "food_groups": [
-        "grains,vegetables,fruits",
-        "grains,meat"
-    ]
-})
-
-df = nfei.add_market_level_diversity_score(
-    df,
-    column="food_groups",
-    max_groups=10
+# Simulated vendor-level food availability data.
+# Each food item column is coded as 1 = available and 0 = not available.
+vendors_df = pd.DataFrame(
+    {
+        "vendor_id": [1, 2, 3],
+        "grains": [1, 1, 0],
+        "roots_tubers": [0, 1, 0],
+        "legumes_pulses": [1, 0, 0],
+        "nuts_seeds": [0, 0, 1],
+        "dairy": [1, 0, 0],
+        "flesh_meat": [1, 0, 0],
+        "organ_meat": [0, 0, 0],
+        "fish": [0, 1, 0],
+        "egg": [1, 0, 0],
+        "dark_green_veg": [0, 1, 0],
+        "vita_rich_fruits": [1, 0, 0],
+        "other_veg": [1, 1, 1],
+        "other_fruits": [0, 1, 1],
+    }
 )
 
-print(df["market_diversity_score"])
+# Implement market level diversity score function
+food_group_mapping = {
+    "grains_roots_tubers": ["grains", "roots_tubers"],
+    "legumes_pulses": "legumes_pulses",
+    "nuts_seeds": "nuts_seeds",
+    "dairy": "dairy",
+    "meat_poultry_fish": ["flesh_meat", "organ_meat", "fish"],
+    "eggs": "egg",
+    "dark_green_leafy_vegetables": "dark_green_veg",
+    "vitamin_a_rich_fruits": "vita_rich_fruits",
+    "other_vegetables": "other_veg",
+    "other_fruits": "other_fruits",
+}
+
+vendors_df = nfei.add_market_level_diversity_score(
+    vendors_df,
+    food_group_cols=food_group_mapping,
+    output_col="mlds",
+)
+
+vendors_df[["vendor_id", "mlds"]]
 ```
+
+Expected interpretation:
+
+- `mlds` ranges from 0 to 10.
+- Higher values indicate that more of the required food groups are available.
+- If a food group is mapped to multiple columns, the group receives a score of 1 when at least one mapped column is available.
 
 ---
 
-## 🧱 Package Architecture
+## 🧱 NFEI package workflow and architecture
 
 ### 1. Availability Module
 Captures **temporal access to food vendors**
@@ -160,91 +226,159 @@ Ensures **data quality and robustness**
 
 ---
 
-## 🔄 How Everything Flows Together
+Typical workflow:
 
-The pipeline follows the research methodology:
+1. Start with raw vendor, food availability, sanitation, and spatial data.
+2. Validate coordinate and required input columns.
+3. Compute individual food environment indicators.
+4. Use spatial aggregation where indicators require environmental exposure around vendors.
+5. Scale indicators to a common range.
+6. Aggregate selected normalized indicators into a composite score.
+7. Compute final NFEI score
 
-1. Raw vendor data  
-2. Indicator construction  
-3. Spatial aggregation  
-4. Normalization  
-5. Aggregation (mean across indicators)  
-6. Final NFEI score  
+---
 
-Result:
+## N-FEI specific indicator construction logic
 
-```text
-Indicators → Normalized Scores → Composite Index (0–10)
+An N-FEI style indicator construction workflow usually involves these steps:
+
+### Step 1: Compute raw indicators
+
+Examples:
+
+- `mlds`
+- `overall_color`
+- `perc_vendor_avail`
+- `vendor_type_per_pop`
+- `vendor_type_per_sqkm`
+- `unhealthy_food_count`
+
+### Step 2: Add spatial exposure indicators when needed
+
+Examples:
+
+- food diversity within 50 metres
+- produce color diversity within 50 metres
+- sanitation or water access within 500 metres
+
+### Step 3: Normalize indicators to a common scale
+
+Use `create_linear_scale` to align indicators to a common 0–10 interpretation.
+
+### Step 4: Invert negative indicators
+
+Unhealthy food exposure should usually be inverted before aggregation.
+
+### Step 5: Aggregate selected normalized indicators
+
+The published N-FEI uses a simple unweighted aggregation of normalized indicators. In practice, users should only aggregate indicators that are available and appropriate for their dataset.
+
+Example:
+
+```python
+indicator_cols = [
+    "mlds_scaled",
+    "mlds_scaled_50m",
+    "overall_color_scaled",
+    "overall_color_scaled_50m",
+    "unhealthy_food_inverted",
+    "vendor_availability_scaled",
+    "vendor_per_pop_scaled",
+    "vendor_per_sqkm_scaled",
+    "access_to_sanitatn"
+]
+
+df["nfei_score"] = df[indicator_cols].mean(axis=1)
 ```
 
 ---
 
-## 📊 Indicators Implemented
+## Complete example notebook
 
-The package supports computation of all core NFEI indicators:
+A fully reproducible simulated end-to-end workflow is provided in:
 
-1. Vendor Healthy Food Diversity Score  
-2. Vendor Environment Healthy Food Diversity Score  
-3. Vendor ProColor Diversity Score  
-4. Vendor Environment ProColor Diversity Score  
-5. Access to Sanitation  
-6. Vendor Availability  
-7. Vendors per Population  
-8. Vendors per km²  
-9. Unhealthy Food Count (inverted)  
+```text
+examples/nfei_end_to_end_example.ipynb
+```
 
----
+The notebook demonstrates with the use of a simulated data:
 
-## 🧪 Data Assumptions
+- computing MLDS
+- computing produce color diversity
+- computing daily and weekly availability
+- computing unhealthy food count
+- computing vendor density
+- computing spatial proximity aggregation
+- scaling indicators
+- assembling a simple N-FEI-style composite score
 
-- Binary variables are coded as 0/1  
-- Multi-response fields are comma-separated strings  
-- Spatial coordinates are in decimal degrees  
-- Missing values must be handled explicitly  
+The example is intentionally simulated so users can run it without access to restricted or project-specific survey data.
 
 ---
 
-## 📁 Examples
+## Important notes and data assumptions
 
-See the `examples/` folder for:
-
-- End-to-end pipeline
-- Multi-country dataset processing
-- Spatial aggregation workflows
-- Full NFEI computation
-
----
-
-## 🧠 Design Principles
-
-- Research-aligned implementation  
-- Reproducibility first  
-- Modular and extensible  
-- Transparent computation logic  
+1. This package provides indicator-building functions, not a single one-size-fits-all N-FEI button.
+2. Column names are never assumed. Users must map their own dataset columns.
+3. Binary variables are coded as 0/1
+4. Multi-response fields are comma-separated strings or already coverted to binary columns
+5. Spatial coordinates are in decimal degrees
+6. Missing values are handled explicitly where relevant.
+7. Spatial functions assume latitude and longitude are in decimal degrees unless otherwise specified.
+8. The final composite index should be assembled using indicators that are valid for the user’s specific study design.
 
 ---
 
-## 📌 Citation
+## Repository structure
 
-If you use this package, cite:
+Suggested project structure:
 
-Akingbemisilu et al. (2025)  
-*The Nutrition-Sensitive Food Environment Index*  
-https://doi.org/10.55845/jos-2025-1116
+```text
+nutrition-food-environment-index/
+├── src/
+│   └── nfei/
+│       ├── availability.py
+│       ├── color.py
+│       ├── density.py
+│       ├── diversity.py
+│       ├── scaling.py
+│       ├── spatial.py
+│       ├── validation.py
+│       └── __init__.py
+├── tests/
+├── examples/
+│   └── nfei_end_to_end_example.ipynb
+├── assets/
+│   └── nfei_pipeline.png
+├── README.md
+└── pyproject.toml
+```
 
 ---
 
-## 🤝 Contributing
+## Citation
 
-Contributions are welcome.
+If you use this package or the N-FEI methodology, please cite:
 
-Please ensure:
-- Functions follow the methodological framework
-- Clear documentation is provided
-- Tests are included
+**Akingbemisilu et al. (2025). The Nutrition-Sensitive Food Environment Index: A Comprehensive Approach to Assessing Food Environments in Association with Health Risks for Policy Decision Making. Journal of Sustainability. https://doi.org/10.55845/jos-2025-1116**
+
+DOI: https://doi.org/10.55845/jos-2025-1116
 
 ---
 
-## 📬 Contact
+## Contributing
 
-For questions, collaborations, or extensions, open an issue or reach out.
+Contributions are welcome. Please ensure that new functionality:
+
+- follows the transparent, modular design of the package
+- includes tests
+- avoids hidden assumptions about user column names
+- documents expected input format and output interpretation
+- remains aligned with food environment measurement logic
+
+---
+
+## License
+
+MIT License.
+
