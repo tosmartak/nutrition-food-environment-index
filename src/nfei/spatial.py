@@ -8,10 +8,67 @@ from pyproj import Transformer
 
 def haversine_vectorized(lon1, lat1, lon2, lat2) -> np.ndarray:
     """
-    Calculate great-circle distances between coordinate pairs using Haversine.
+    Calculate great-circle distances using the Haversine formula.
 
-    Returns distances in kilometers.
+    This function computes the distance between longitude and latitude
+    coordinates using the Haversine formula. It is used in the NFEI spatial
+    workflow for direct distance calculations on geographic coordinates without
+    requiring users to first convert their data into GeoDataFrames.
+
+    Distances are returned in kilometres.
+
+    Parameters
+    ----------
+    lon1:
+        Longitude of the first point or points, in decimal degrees.
+
+    lat1:
+        Latitude of the first point or points, in decimal degrees.
+
+    lon2:
+        Longitude of the second point or points, in decimal degrees.
+
+    lat2:
+        Latitude of the second point or points, in decimal degrees.
+
+    Returns
+    -------
+    np.ndarray
+        Great-circle distance or distances in kilometres.
+
+    Notes
+    -----
+    Input coordinates must be in decimal degrees. The function internally
+    converts coordinates to radians before applying the Haversine formula.
+
+    This function is most useful for direct point-to-point or one-to-many
+    distance calculations. For buffer-based exposure indicators, use
+    :func:`features_proximity_agg`.
+
+    Examples
+    --------
+    Calculate the distance between two points:
+
+    >>> import nfei
+    >>>
+    >>> distance = nfei.haversine_vectorized(
+    ...     lon1=36.8000,
+    ...     lat1=-1.3000,
+    ...     lon2=36.8002,
+    ...     lat2=-1.3002,
+    ... )
+
+    Calculate distances from one point to several candidate points:
+
+    >>> import numpy as np
+    >>> distances = nfei.haversine_vectorized(
+    ...     lon1=36.8000,
+    ...     lat1=-1.3000,
+    ...     lon2=np.array([36.8002, 36.9000]),
+    ...     lat2=np.array([-1.3002, -1.4000]),
+    ... )
     """
+    
     lon1, lat1, lon2, lat2 = map(np.radians, [lon1, lat1, lon2, lat2])
 
     dlon = lon2 - lon1
@@ -39,46 +96,117 @@ def calc_distance(
     data2_lat: str = "_latitude",
 ) -> pd.DataFrame:
     """
-    Calculate nearest distance from each observation in data1 to observations in data2.
+    Calculate nearest distance between two sets of observations.
 
-    This mirrors the original NFEI notebook logic. For each row in data1, the
-    function calculates the Haversine distance to all rows in data2 and keeps
-    the closest distance.
+    This function calculates the nearest distance from each observation in
+    ``data1`` to observations in ``data2`` using longitude and latitude
+    coordinates. It supports NFEI workflows where users need to measure proximity
+    between food environment features, such as households and vendors, vendors
+    and water points, or vendors and sanitation facilities.
+
+    For each row in ``data1``, the function computes the Haversine distance to
+    all rows in ``data2`` and keeps the closest distance.
 
     Parameters
     ----------
     data1:
-        Primary dataframe. Each row receives the nearest distance to data2.
+        Primary dataframe. Each row receives the nearest distance to
+        observations in ``data2``.
 
     data2:
         Secondary dataframe containing candidate destination points.
 
     include_col:
-        Optional column from data2 to bring back from the nearest observation.
-        For example, if include_col='vendor_type', the returned dataframe gets
-        a column named 'closest_vendor_type'.
+        Optional column from ``data2`` to bring back from the nearest
+        observation. For example, if ``include_col="vendor_type"``, the returned
+        dataframe receives a column named ``"closest_vendor_type"``.
 
     col_title:
-        Name of the distance column to add. Distances are in kilometers.
+        Name of the distance column to add. Distances are returned in
+        kilometres. The default is ``"distance_km"``.
 
-    data1_lon, data1_lat:
-        Longitude and latitude column names in data1.
+    data1_lon:
+        Longitude column name in ``data1``. The default is ``"_longitude"``.
 
-    data2_lon, data2_lat:
-        Longitude and latitude column names in data2.
+    data1_lat:
+        Latitude column name in ``data1``. The default is ``"_latitude"``.
+
+    data2_lon:
+        Longitude column name in ``data2``. The default is ``"_longitude"``.
+
+    data2_lat:
+        Latitude column name in ``data2``. The default is ``"_latitude"``.
 
     Returns
     -------
     pd.DataFrame
-        Copy of data1 with a nearest-distance column. If include_col is given,
-        a closest_{include_col} column is also added.
+        Copy of ``data1`` with a nearest-distance column added. If
+        ``include_col`` is provided, a ``"closest_{include_col}"`` column is
+        also added.
+
+    Raises
+    ------
+    KeyError
+        If required longitude or latitude columns are missing from either
+        dataframe, or if ``include_col`` is provided but not found in ``data2``.
+
+    ValueError
+        If ``data2`` contains no observations.
 
     Notes
     -----
-    This function uses latitude and longitude directly through the Haversine
-    formula. It is appropriate for nearest-distance calculation in kilometers
-    without requiring users to convert dataframes to GeoDataFrames.
+    This function uses geographic coordinates directly through the Haversine
+    formula and returns distances in kilometres.
+
+    It is appropriate for nearest-neighbour distance calculations. It does not
+    perform buffer-based spatial joins. For buffer-based aggregation, use
+    :func:`features_proximity_agg`.
+
+    Examples
+    --------
+    Calculate the nearest vendor distance for each household:
+
+    >>> import pandas as pd
+    >>> import nfei
+    >>>
+    >>> households = pd.DataFrame(
+    ...     {
+    ...         "household_id": [1, 2],
+    ...         "_longitude": [36.8001, 36.9000],
+    ...         "_latitude": [-1.3001, -1.4000],
+    ...     }
+    ... )
+    >>> vendors = pd.DataFrame(
+    ...     {
+    ...         "vendor_id": [1, 2],
+    ...         "vendor_type": ["shop", "kiosk"],
+    ...         "_longitude": [36.8000, 36.8500],
+    ...         "_latitude": [-1.3000, -1.3500],
+    ...     }
+    ... )
+    >>> result = nfei.calc_distance(
+    ...     data1=households,
+    ...     data2=vendors,
+    ...     include_col="vendor_type",
+    ... )
+
+    Use custom coordinate column names:
+
+    >>> result = nfei.calc_distance(
+    ...     data1=households.rename(
+    ...         columns={"_longitude": "lon", "_latitude": "lat"}
+    ...     ),
+    ...     data2=vendors.rename(
+    ...         columns={"_longitude": "x", "_latitude": "y"}
+    ...     ),
+    ...     data1_lon="lon",
+    ...     data1_lat="lat",
+    ...     data2_lon="x",
+    ...     data2_lat="y",
+    ...     col_title="nearest_vendor_km",
+    ... )
     """
+    
     required_data1_cols = [data1_lon, data1_lat]
     required_data2_cols = [data2_lon, data2_lat]
 
@@ -208,66 +336,180 @@ def features_proximity_agg(
     projected_crs: str | int | None = None,
 ) -> pd.DataFrame:
     """
-    Aggregate features from df2 within a buffer around each observation in df1.
+    Aggregate features within a spatial buffer.
 
-    This is a cleaned version of the original NFEI notebook function. It accepts
-    ordinary pandas DataFrames with latitude and longitude columns, converts them
-    internally to GeoDataFrames, creates buffers around df1 points, and aggregates
-    nearby df2 observations within each buffer.
+    This function aggregates features from ``df2`` within a specified buffer
+    around each observation in ``df1``. It supports NFEI workflows where users
+    need to construct environment-level indicators, such as food diversity
+    within 50 metres of each vendor or access to sanitation facilities within a
+    specified distance.
+
+    The function accepts ordinary pandas DataFrames with longitude and latitude
+    columns. Internally, it converts the data to projected GeoDataFrames, creates
+    buffers around ``df1`` points, performs a spatial join, and aggregates
+    matching ``df2`` observations within each buffer.
 
     Parameters
     ----------
     df1:
-        Primary dataframe. A buffer is created around each row.
+        Primary dataframe. A buffer is created around each row in this
+        dataframe, and aggregated values are returned at this level.
 
     df2:
-        Secondary dataframe. Rows falling within each df1 buffer are aggregated.
+        Secondary dataframe containing the features to aggregate within each
+        buffer.
 
     buffer:
-        Buffer radius in meters.
+        Buffer radius in metres.
 
     col_to_agg:
-        Columns in df2 to aggregate. Required for 'sum', 'mean', and 'max'.
-        Not required for 'count'.
+        List of columns in ``df2`` to aggregate. Required when ``method`` is
+        ``"sum"``, ``"mean"``, or ``"max"``. Not required when
+        ``method="count"``.
 
     self_count:
-        If False and df1 and df2 are the same object, each row is excluded from
-        its own buffer before aggregation. This is done before aggregation, which
-        is more appropriate than subtracting after aggregation.
+        If False and ``df1`` and ``df2`` are the same object, each row is
+        excluded from its own buffer before aggregation. If True, each row can
+        contribute to its own buffer.
 
     include_sum:
-        If True and method is not 'count', adds an overall aggregate column by
-        summing the aggregated columns row-wise.
+        If True and ``method`` is not ``"count"``, adds an overall aggregate
+        column by summing the aggregated columns row-wise.
 
     method:
-        Aggregation method. One of: 'sum', 'mean', 'max', 'count'.
+        Aggregation method. Must be one of ``"sum"``, ``"mean"``, ``"max"``,
+        or ``"count"``.
 
-    df1_lat, df1_lon:
-        Latitude and longitude column names in df1.
+    df1_lat:
+        Latitude column name in ``df1``. The default is ``"_latitude"``.
 
-    df2_lat, df2_lon:
-        Latitude and longitude column names in df2.
+    df1_lon:
+        Longitude column name in ``df1``. The default is ``"_longitude"``.
+
+    df2_lat:
+        Latitude column name in ``df2``. The default is ``"_latitude"``.
+
+    df2_lon:
+        Longitude column name in ``df2``. The default is ``"_longitude"``.
 
     overall_title:
-        Name of the count column for method='count', or the overall aggregate
-        column when include_sum=True.
+        Name of the output count column when ``method="count"``, or the overall
+        aggregate column when ``include_sum=True``.
 
     drop_col_to_agg:
-        If True, drops individual aggregated columns and keeps only the overall
-        aggregate. Only valid when include_sum=True and method is not 'count'.
+        If True, drops the individual aggregated columns and keeps only
+        ``overall_title``. This is only valid when ``include_sum=True`` and
+        ``method`` is not ``"count"``.
 
     input_crs:
-        CRS of the input coordinates. Default is EPSG:4326.
+        Coordinate reference system of the input longitude and latitude
+        coordinates. The default is ``"EPSG:4326"``.
 
     projected_crs:
-        Projected CRS used for distance and buffer operations. If None, a local
-        UTM CRS is estimated automatically.
+        Projected coordinate reference system used for buffer and distance
+        operations. If None, a local UTM CRS is estimated from the input
+        coordinates.
 
     Returns
     -------
     pd.DataFrame
-        Copy of df1 with buffer-based aggregate features added.
+        Copy of ``df1`` with buffer-based aggregate columns added.
+
+    Raises
+    ------
+    ValueError
+        If ``buffer`` is less than or equal to zero, if ``method`` is invalid,
+        if ``col_to_agg`` is missing when required, or if
+        ``drop_col_to_agg=True`` is used without ``include_sum=True`` for
+        non-count aggregation.
+
+    KeyError
+        If coordinate columns are missing, or if any column listed in
+        ``col_to_agg`` is not found in ``df2``.
+
+    Notes
+    -----
+    The ``buffer`` argument is in metres because the function performs buffer
+    operations in a projected CRS.
+
+    When ``df1`` and ``df2`` are the same object, ``self_count=False`` excludes
+    each observation from its own buffer. This is useful for neighbour-only
+    calculations. Use ``self_count=True`` when the focal observation should be
+    included in its own environment, such as when computing food diversity
+    available within a vendor's immediate environment including the vendor
+    itself.
+
+    Output column names for non-count aggregation are generated by appending
+    ``"_within_{buffer}m"`` to aggregated column names.
+
+    Rows with no matching features within the buffer receive 0 in the added
+    aggregate columns.
+
+    Examples
+    --------
+    Count vendors within 100 metres of each household:
+
+    >>> import pandas as pd
+    >>> import nfei
+    >>>
+    >>> households = pd.DataFrame(
+    ...     {
+    ...         "household_id": [1, 2],
+    ...         "_longitude": [36.8001, 36.9000],
+    ...         "_latitude": [-1.3001, -1.4000],
+    ...     }
+    ... )
+    >>> vendors = pd.DataFrame(
+    ...     {
+    ...         "vendor_id": [1, 2],
+    ...         "_longitude": [36.8000, 36.8500],
+    ...         "_latitude": [-1.3000, -1.3500],
+    ...     }
+    ... )
+    >>> result = nfei.features_proximity_agg(
+    ...     df1=households,
+    ...     df2=vendors,
+    ...     buffer=100,
+    ...     method="count",
+    ...     overall_title="vendors_within_100m",
+    ... )
+
+    Sum food-group availability within 50 metres of each vendor:
+
+    >>> vendors = pd.DataFrame(
+    ...     {
+    ...         "vendor_id": [1, 2],
+    ...         "_longitude": [36.8000, 36.8002],
+    ...         "_latitude": [-1.3000, -1.3002],
+    ...         "grains": [1, 1],
+    ...         "legumes_pulses": [1, 0],
+    ...         "other_vegetables": [0, 1],
+    ...     }
+    ... )
+    >>> result = nfei.features_proximity_agg(
+    ...     df1=vendors,
+    ...     df2=vendors,
+    ...     buffer=50,
+    ...     col_to_agg=["grains", "legumes_pulses", "other_vegetables"],
+    ...     method="sum",
+    ...     self_count=True,
+    ... )
+
+    Create a single overall aggregate column and drop individual columns:
+
+    >>> result = nfei.features_proximity_agg(
+    ...     df1=vendors,
+    ...     df2=vendors,
+    ...     buffer=50,
+    ...     col_to_agg=["grains", "legumes_pulses", "other_vegetables"],
+    ...     method="sum",
+    ...     self_count=True,
+    ...     include_sum=True,
+    ...     overall_title="food_group_items_within_50m",
+    ...     drop_col_to_agg=True,
+    ... )
     """
+    
     if buffer <= 0:
         raise ValueError("buffer must be greater than zero.")
 

@@ -1,4 +1,4 @@
-site_name: nfei
+site_name: N-FEI Python
 site_description: Nutrition-Sensitive Food Environment Index utilities for Python
 site_url: https://tosmartak.github.io/nfei/
 repo_url: https://github.com/tosmartak/nutrition-food-environment-index
@@ -14,6 +14,9 @@ theme:
     - search.suggest
     - content.code.copy
 
+extra_css:
+  - stylesheets/extra.css
+
 plugins:
   - search
   - mkdocstrings:
@@ -22,22 +25,25 @@ plugins:
           paths: ["src"]
           options:
             docstring_style: numpy
-            show_source: true
+            show_source: false
             show_root_heading: true
+            show_root_full_path: true
             show_signature_annotations: true
+            separate_signature: true
+            members_order: source
   - mkdocs-jupyter
 
 nav:
   - Home: index.md
-  - Getting started: getting-started.md
   - Methodology: methodology.md
+  - Getting started: getting-started.md
   - Examples:
       - End-to-end NFEI workflow: examples/nfei_end_to_end_example.ipynb
   - API reference:
       - Availability: api/availability.md
-      - Color: api/color.md
-      - Density: api/density.md
+      - ProColor: api/color.md
       - Diversity: api/diversity.md
-      - Scaling: api/scaling.md
+      - Density: api/density.md
       - Spatial: api/spatial.md
+      - Scaling: api/scaling.md
       - Validation: api/validation.md

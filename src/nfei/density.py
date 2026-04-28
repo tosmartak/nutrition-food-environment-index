@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import math
-
 import pandas as pd
 
 
@@ -13,51 +12,90 @@ def estimate_population_from_radius(
     round_population: int | None = 0,
 ) -> dict[str, float]:
     """
-    Estimate the population covered by a circular mapped area.
+    This function estimates the population covered by a radius-based survey
+    area. It supports NFEI workflows where vendor mapping is conducted using a
+    centred approach, such as mapping all vendors within a fixed radius around a
+    market, neighbourhood centre, or other reference point.
 
-    This mirrors the logic used in the original NFEI notebooks where the mapped
-    survey area is approximated using a circular radius.
-
-    The function assumes population is evenly distributed across the larger
-    administrative area. This is only an approximation and should be reported
-    as an estimated denominator.
+    The function assumes that population is evenly distributed across the larger
+    known administrative area. It then estimates the population within the
+    circular mapped area using the radius supplied by the user.
 
     Parameters
     ----------
     population:
-        Total population of the larger known administrative area.
-        Example: total population of Cotonou.
+        Total population of the larger administrative area used as the
+        denominator. For example, this may be the population of a city,
+        municipality, arrondissement, ward, or subcounty.
 
     land_area_sqkm:
-        Total land area, in square kilometers, of the same administrative area
-        used for the population value.
-        Example: total land area of Cotonou.
+        Total land area, in square kilometres, of the same administrative area
+        represented by ``population``.
 
     radius_km:
-        Radius, in kilometers, of the mapped survey area.
-        Example: 1 for a 1 km radius survey area.
+        Radius, in kilometres, of the mapped survey area.
 
     round_area:
-        Number of decimal places for the estimated mapped area. If None, no
-        rounding is applied.
+        Number of decimal places used to round the estimated mapped area. If
+        None, no rounding is applied. The default is 2.
 
     round_population:
-        Number of decimal places for the estimated population. If None, no
-        rounding is applied.
+        Number of decimal places used to round the estimated population. If
+        None, no rounding is applied. The default is 0.
 
     Returns
     -------
-    dict
+    dict[str, float]
         Dictionary containing:
-        - population_density_per_sqkm
-        - area_covered_sqkm
-        - estimated_population
+
+        - ``"population_density_per_sqkm"``: population divided by land area.
+        - ``"area_covered_sqkm"``: estimated circular mapped area.
+        - ``"estimated_population"``: estimated population within the mapped
+          radius.
+
+    Raises
+    ------
+    ValueError
+        If ``population``, ``land_area_sqkm``, or ``radius_km`` is less than or
+        equal to zero.
 
     Notes
     -----
-    estimated_population =
-        (population / land_area_sqkm) * (pi * radius_km^2)
+    The estimated mapped area is calculated as:
+
+    ``pi * radius_km^2``
+
+    The estimated population is calculated as:
+
+    ``(population / land_area_sqkm) * area_covered_sqkm``
+
+    This is an approximation. It should be interpreted as an estimated
+    denominator, especially in settings where population is not evenly
+    distributed across the administrative area.
+
+    Examples
+    --------
+    Estimate the population covered by a 1 km radius survey area:
+
+    >>> import nfei
+    >>>
+    >>> result = nfei.estimate_population_from_radius(
+    ...     population=738444,
+    ...     land_area_sqkm=79,
+    ...     radius_km=1,
+    ... )
+
+    Return unrounded estimates:
+
+    >>> result = nfei.estimate_population_from_radius(
+    ...     population=738444,
+    ...     land_area_sqkm=79,
+    ...     radius_km=1,
+    ...     round_area=None,
+    ...     round_population=None,
+    ... )
     """
+    
     if population <= 0:
         raise ValueError("population must be greater than zero.")
 
@@ -97,63 +135,154 @@ def add_vendor_density(
     rate_col: str | None = None,
 ) -> pd.DataFrame:
     """
-    Add vendor density indicators to a dataframe.
+    This function computes vendor density indicators used in the NFEI workflow.
+    It counts vendors by area and vendor type, then relates those counts to
+    population and land area denominators.
 
-    This mirrors the original notebook logic:
+    The function produces two core indicators:
 
-    vendor_type_pop =
-        count of vendors by area/group and vendor type
+    - vendors per population, reflecting vendor availability relative to the
+      number of people living in the area.
+    - vendors per square kilometre, reflecting the spatial distribution or
+      concentration of vendors across the mapped area.
 
-    vendor_type_per_pop =
-        vendor_type_pop / Population
-
-    vendor_type_per_sqkm =
-        vendor_type_pop / Land_area_sqkm
+    These indicators help describe whether a food environment may be
+    under-served, over-concentrated, or spatially dense relative to the
+    population and land area being assessed.
 
     Parameters
     ----------
     df:
-        Input dataframe.
+        Input dataframe. Each row should represent a vendor or vendor
+        observation.
 
     group_col:
-        Column identifying the mapped area or administrative unit.
-        Examples: 'ward', 'subcounty'.
+        Column identifying the geographic unit, mapped area, or administrative
+        unit within which vendor counts should be computed. Examples include
+        ``"ward"``, ``"subcounty"``, ``"community"``, or ``"survey_area"``.
 
     vendor_type_col:
-        Column identifying vendor category/type.
-        Example: 'vendor_type'.
+        Column identifying the vendor category or vendor type. Vendor counts are
+        calculated separately for each combination of ``group_col`` and
+        ``vendor_type_col``.
 
     population_col:
-        Column containing population denominator for each group.
-        This can be a known administrative population or an estimated mapped-area
-        population.
+        Column containing the population denominator for each group. This can be
+        a known administrative population or an estimated mapped-area population
+        from :func:`estimate_population_from_radius`.
 
     land_area_col:
-        Column containing land area in square kilometers.
-        This can be known administrative area or estimated mapped-area coverage.
+        Column containing land area in square kilometres for each group. This
+        can be a known administrative land area or an estimated mapped-area
+        coverage.
 
     count_col:
-        Name of the output column for vendor counts by group and vendor type.
+        Name of the output column containing the vendor count by group and
+        vendor type. The default is ``"vendor_type_pop"``.
 
     per_pop_col:
-        Name of the output column for vendors per person.
+        Name of the output column containing vendors per person. The default is
+        ``"vendor_type_per_pop"``.
 
     per_sqkm_col:
-        Name of the output column for vendors per square kilometer.
+        Name of the output column containing vendors per square kilometre. The
+        default is ``"vendor_type_per_sqkm"``.
 
     rate_per:
-        Optional population scaling factor. If None, no scaled rate is created.
-        Example: rate_per=1000 creates vendors per 1,000 people.
+        Optional population scaling factor used to create an easier-to-read
+        rate. For example, ``rate_per=1000`` creates vendors per 1,000 people.
+        If None, no scaled rate column is created.
 
     rate_col:
         Optional name of the scaled population density column. If not provided
-        and rate_per is used, a default name is generated.
+        and ``rate_per`` is used, the column name is generated automatically
+        from ``per_pop_col`` and ``rate_per``.
 
     Returns
     -------
     pd.DataFrame
-        Copy of dataframe with vendor count and density columns added.
+        Copy of the dataframe with vendor count, vendors per population, vendors
+        per square kilometre, and optionally a scaled population-rate column
+        added.
+
+    Raises
+    ------
+    KeyError
+        If any of ``group_col``, ``vendor_type_col``, ``population_col``, or
+        ``land_area_col`` is not found in the dataframe.
+
+    ValueError
+        If any value in ``population_col`` or ``land_area_col`` is less than or
+        equal to zero, or if ``rate_per`` is provided and is less than or equal
+        to zero.
+
+    Notes
+    -----
+    Vendor counts are calculated for each unique combination of geographic group
+    and vendor type. The resulting count is merged back onto the original
+    dataframe, so each vendor row receives the count and density values for its
+    own group and vendor type.
+
+    The main calculations are:
+
+    ``vendor_type_per_pop = vendor_type_count / population``
+
+    ``vendor_type_per_sqkm = vendor_type_count / land_area_sqkm``
+
+    If ``rate_per`` is provided, the scaled rate is calculated as:
+
+    ``vendor_type_per_pop * rate_per``
+
+    Examples
+    --------
+    Compute vendor density using known population and land-area denominators:
+
+    >>> import pandas as pd
+    >>> import nfei
+    >>>
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         "ward": ["A", "A", "A", "B"],
+    ...         "vendor_type": ["shop", "shop", "kiosk", "shop"],
+    ...         "Population": [1000, 1000, 1000, 800],
+    ...         "Land_area_sqkm": [2.0, 2.0, 2.0, 1.5],
+    ...     }
+    ... )
+    >>> result = nfei.add_vendor_density(
+    ...     df,
+    ...     group_col="ward",
+    ...     vendor_type_col="vendor_type",
+    ...     population_col="Population",
+    ...     land_area_col="Land_area_sqkm",
+    ... )
+
+    Add an interpretable scaled rate, such as vendors per 1,000 people:
+
+    >>> result = nfei.add_vendor_density(
+    ...     df,
+    ...     group_col="ward",
+    ...     vendor_type_col="vendor_type",
+    ...     population_col="Population",
+    ...     land_area_col="Land_area_sqkm",
+    ...     rate_per=1000,
+    ... )
+
+    Use custom output column names:
+
+    >>> result = nfei.add_vendor_density(
+    ...     df,
+    ...     group_col="ward",
+    ...     vendor_type_col="vendor_type",
+    ...     population_col="Population",
+    ...     land_area_col="Land_area_sqkm",
+    ...     count_col="vendor_count",
+    ...     per_pop_col="vendors_per_person",
+    ...     per_sqkm_col="vendors_per_sqkm",
+    ...     rate_per=1000,
+    ...     rate_col="vendors_per_1000_people",
+    ... )
     """
+    
     required_cols = [group_col, vendor_type_col, population_col, land_area_col]
     missing_cols = [col for col in required_cols if col not in df.columns]
 

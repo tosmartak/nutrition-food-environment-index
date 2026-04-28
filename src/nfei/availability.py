@@ -38,16 +38,21 @@ def add_daily_availability(
     missing_policy: str = "raise",
 ) -> pd.DataFrame:
     """
-    Add percentage daily vendor availability.
+    This function computes the daily component of vendor availability used in
+    the NFEI workflow. It converts binary time-period availability columns into
+    a percentage score that reflects the share of the day during which a vendor
+    is accessible to consumers.
+    
+    By default, the function follows the NFEI notebook weighting scheme:
 
-    Daily availability is calculated from user-specified binary time-period
-    columns. By default, the function follows the NFEI notebook weighting:
-    morning=30, afternoon=30, evening=30, night=10.
+    - ``morning``: 30
+    - ``afternoon``: 30
+    - ``evening``: 30
+    - ``night``: 10
 
-    If all_day_col is provided and equals 1, daily availability is set to 100,
-    even if the time-period columns are missing. This supports questionnaires
-    where time-period questions are skipped when the respondent indicates
-    all-day availability.
+    These weights reflect the assumption that most food purchasing activity
+    occurs from morning to evening, while night-time availability contributes a
+    smaller share to overall daily access.
 
     Parameters
     ----------
@@ -55,32 +60,106 @@ def add_daily_availability(
         Input dataframe.
 
     time_cols:
-        Dictionary mapping time-period labels to dataframe column names.
+        Dictionary mapping the required time-period labels to dataframe column
+        names. The required keys are ``"morning"``, ``"afternoon"``,
+        ``"evening"``, and ``"night"``.
 
     all_day_col:
         Optional binary column indicating whether the vendor operates all day.
+        If provided and equal to 1, the daily availability score is set to 100.
 
     time_weights:
-        Dictionary mapping the same time-period labels to percentage weights.
+        Optional dictionary mapping the same time-period labels in
+        ``time_cols`` to percentage weights. If None, the default NFEI weights
+        are used. Custom weights must use the same keys as ``time_cols``.
+        Users should ensure the weights sum to 100 for direct percentage
+        interpretation.
 
     output_col:
         Name of the output daily availability column.
 
     fillna_value:
-        Value used to fill missing values when missing_policy='fill'.
+        Value used to fill missing values when ``missing_policy="fill"``.
 
     missing_policy:
-        How to handle missing values in time_cols.
+        How to handle missing values in ``time_cols``.
 
-        - 'raise': raise an error for missing time values unless all_day_col == 1.
-        - 'fill': fill missing time values with fillna_value.
-        - 'ignore': leave missing values as-is.
+        - ``"raise"``: raise an error for missing time values unless
+          ``all_day_col == 1``.
+        - ``"fill"``: fill missing time values with ``fillna_value``.
+        - ``"ignore"``: leave missing values as-is.
 
     Returns
     -------
     pd.DataFrame
-        Copy of dataframe with percentage daily availability added.
+        Copy of the dataframe with the daily availability percentage column
+        added.
+
+    Raises
+    ------
+    KeyError
+        If any required time-period column, or the optional ``all_day_col``,
+        is not found in the dataframe.
+
+    ValueError
+        If ``time_cols`` and ``time_weights`` do not contain the same keys, if
+        ``missing_policy`` is invalid, or if missing values are found under
+        ``missing_policy="raise"``.
+
+    Notes
+    -----
+    Missing values are handled conservatively by default. When
+    ``missing_policy="raise"``, missing values in ``time_cols`` are allowed only
+    for rows where ``all_day_col == 1``. This supports survey designs where
+    time-period questions are skipped after an all-day response.
+
+    If ``all_day_col`` is not provided, missing values in ``time_cols`` are
+    treated as a data-quality issue unless ``missing_policy="fill"`` or
+    ``missing_policy="ignore"`` is used.
+
+    Examples
+    --------
+    Standard use with an all-day column:
+
+    >>> import pandas as pd
+    >>> import nfei
+    >>>
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         "vendor_allday": [0, 1],
+    ...         "available_morning": [1, None],
+    ...         "available_afternoon": [1, None],
+    ...         "available_evening": [0, None],
+    ...         "available_night": [0, None],
+    ...     }
+    ... )
+    >>> time_cols = {
+    ...     "morning": "available_morning",
+    ...     "afternoon": "available_afternoon",
+    ...     "evening": "available_evening",
+    ...     "night": "available_night",
+    ... }
+    >>> result = nfei.add_daily_availability(
+    ...     df,
+    ...     time_cols=time_cols,
+    ...     all_day_col="vendor_allday",
+    ... )
+
+    Custom weighting:
+
+    >>> result = nfei.add_daily_availability(
+    ...     df,
+    ...     time_cols=time_cols,
+    ...     all_day_col="vendor_allday",
+    ...     time_weights={
+    ...         "morning": 25,
+    ...         "afternoon": 25,
+    ...         "evening": 25,
+    ...         "night": 25,
+    ...     },
+    ... )
     """
+    
     _validate_missing_policy(missing_policy)
 
     if time_weights is None:
@@ -156,11 +235,20 @@ def add_weekly_availability(
     missing_policy: str = "raise",
 ) -> pd.DataFrame:
     """
-    Add percentage weekly vendor availability.
+    This function computes the weekly component of vendor availability used in
+    the NFEI workflow. It converts binary day-of-week availability columns into
+    a percentage score that reflects how consistently a vendor is accessible
+    across the week.
 
-    Weekly availability is calculated as the percentage of available days in a
-    week. If all_week_col is provided and equals 1, weekly availability is set
-    to 100, even if individual day columns are missing.
+    By default, the function expects seven binary day columns, one for each day
+    of the week, and calculates availability as:
+
+    ``number of available days / days_in_week * 100``
+
+    If ``all_week_col`` is provided and equals 1, weekly availability is set to
+    100, even if the individual day columns are missing. This supports survey
+    designs where individual day questions are skipped after an all-week
+    response.
 
     Parameters
     ----------
@@ -168,35 +256,122 @@ def add_weekly_availability(
         Input dataframe.
 
     day_cols:
-        List of binary day columns. By default, this should contain 7 columns.
+        List of binary day-of-week columns. By default, this should contain
+        seven columns, one for each day of the week.
 
     all_week_col:
         Optional binary column indicating whether the vendor operates all week.
+        If provided and equal to 1, the weekly availability score is set to 100.
 
     output_col:
         Name of the output weekly availability column.
 
     days_in_week:
-        Number of days used as the denominator. Default is 7.
+        Number of days used as the denominator. The default is 7.
 
     fillna_value:
-        Value used to fill missing values when missing_policy='fill'.
+        Value used to fill missing values when ``missing_policy="fill"``.
 
     round_result:
-        If True, converts the result to integer percentage.
+        If True, converts the weekly availability score to an integer
+        percentage. This is useful when matching notebook workflows where
+        percentage availability was stored as rounded whole numbers.
 
     missing_policy:
-        How to handle missing values in day_cols.
+        How to handle missing values in ``day_cols``.
 
-        - 'raise': raise an error for missing day values unless all_week_col == 1.
-        - 'fill': fill missing day values with fillna_value.
-        - 'ignore': leave missing values as-is.
+        - ``"raise"``: raise an error for missing day values unless
+          ``all_week_col == 1``.
+        - ``"fill"``: fill missing day values with ``fillna_value``.
+        - ``"ignore"``: leave missing values as-is.
 
     Returns
     -------
     pd.DataFrame
-        Copy of dataframe with percentage weekly availability added.
+        Copy of the dataframe with the weekly availability percentage column
+        added.
+
+    Raises
+    ------
+    KeyError
+        If any required day column, or the optional ``all_week_col``, is not
+        found in the dataframe.
+
+    ValueError
+        If ``days_in_week`` is less than or equal to zero, if the number of
+        ``day_cols`` does not match ``days_in_week``, if ``missing_policy`` is
+        invalid, or if missing values are found under
+        ``missing_policy="raise"``.
+
+    Notes
+    -----
+    The default configuration assumes a standard seven-day week. If a different
+    denominator is used, ``day_cols`` must contain the same number of columns as
+    ``days_in_week``.
+
+    Missing values are handled conservatively by default. When
+    ``missing_policy="raise"``, missing values in ``day_cols`` are allowed only
+    for rows where ``all_week_col == 1``.
+
+    If ``all_week_col`` is not provided, missing values in ``day_cols`` are
+    treated as a data-quality issue unless ``missing_policy="fill"`` or
+    ``missing_policy="ignore"`` is used.
+
+    Examples
+    --------
+    Standard use with an all-week column:
+
+    >>> import pandas as pd
+    >>> import nfei
+    >>>
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         "vendor_allweek": [0, 1],
+    ...         "monday": [1, None],
+    ...         "tuesday": [1, None],
+    ...         "wednesday": [1, None],
+    ...         "thursday": [0, None],
+    ...         "friday": [0, None],
+    ...         "saturday": [0, None],
+    ...         "sunday": [0, None],
+    ...     }
+    ... )
+    >>> day_cols = [
+    ...     "monday",
+    ...     "tuesday",
+    ...     "wednesday",
+    ...     "thursday",
+    ...     "friday",
+    ...     "saturday",
+    ...     "sunday",
+    ... ]
+    >>> result = nfei.add_weekly_availability(
+    ...     df,
+    ...     day_cols=day_cols,
+    ...     all_week_col="vendor_allweek",
+    ... )
+
+    Use without an all-week column when all day columns are collected directly:
+
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         "monday": [1],
+    ...         "tuesday": [1],
+    ...         "wednesday": [1],
+    ...         "thursday": [0],
+    ...         "friday": [0],
+    ...         "saturday": [0],
+    ...         "sunday": [0],
+    ...     }
+    ... )
+    >>> result = nfei.add_weekly_availability(
+    ...     df,
+    ...     day_cols=day_cols,
+    ...     all_week_col=None,
+    ...     round_result=True,
+    ... )
     """
+    
     _validate_missing_policy(missing_policy)
 
     if days_in_week <= 0:
@@ -269,9 +444,80 @@ def add_vendor_availability(
     weekly_col: str = "perc_weekly_avail",
     output_col: str = "perc_vendor_avail",
 ) -> pd.DataFrame:
+    
     """
-    Add overall vendor availability as the mean of daily and weekly availability.
+    This function computes the combined vendor availability indicator used in
+    the NFEI workflow. It summarizes temporal access to vendors by taking the
+    row-wise mean of daily availability and weekly availability.
+
+    The function assumes that daily and weekly availability have already been
+    computed, typically using :func:`add_daily_availability` and
+    :func:`add_weekly_availability`. The resulting score provides a single
+    percentage-based measure of how consistently a vendor is available both
+    within a day and across the week.
+
+    Parameters
+    ----------
+    df:
+        Input dataframe.
+
+    daily_col:
+        Column containing percentage daily availability. The default is
+        ``"perc_daily_avail"``.
+
+    weekly_col:
+        Column containing percentage weekly availability. The default is
+        ``"perc_weekly_avail"``.
+
+    output_col:
+        Name of the output column containing overall vendor availability. The
+        default is ``"perc_vendor_avail"``.
+
+    Returns
+    -------
+    pd.DataFrame
+        Copy of the input dataframe with the combined vendor availability
+        column added.
+
+    Raises
+    ------
+    KeyError
+        If either ``daily_col`` or ``weekly_col`` is not found in the dataframe.
+
+    Notes
+    -----
+    The output is calculated as:
+
+    ``(daily availability + weekly availability) / 2``
+
+    The function does not rescale the inputs. Users should ensure that both
+    input columns are measured on the same percentage scale, usually 0 to 100.
+
+    Examples
+    --------
+    Standard use with default column names:
+
+    >>> import pandas as pd
+    >>> import nfei
+    >>>
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         "perc_daily_avail": [100, 60],
+    ...         "perc_weekly_avail": [100, 40],
+    ...     }
+    ... )
+    >>> result = nfei.add_vendor_availability(df)
+
+    Use with custom column names:
+
+    >>> result = nfei.add_vendor_availability(
+    ...     df,
+    ...     daily_col="perc_daily_avail",
+    ...     weekly_col="perc_weekly_avail",
+    ...     output_col="vendor_availability_score",
+    ... )
     """
+    
     required_cols = [daily_col, weekly_col]
     _validate_required_columns(df, required_cols)
 

@@ -12,34 +12,62 @@ def mad_based_outlier(
     """
     Detect outliers using the Median Absolute Deviation (MAD) method.
 
-    This function mirrors the outlier detection logic used in the original NFEI
-    notebooks. It is useful for identifying unusually distant coordinate values
-    or extreme numeric observations in skewed data.
+    This function identifies outliers in numeric data using the Median Absolute
+    Deviation (MAD) approach. It is used in the NFEI workflow to detect extreme
+    values in skewed distributions, particularly for spatial coordinates where
+    traditional mean-based methods are not robust.
+
+    The MAD method is preferred because it is resistant to the influence of
+    extreme values and works well for non-normal data.
 
     Parameters
     ----------
     values:
-        One-dimensional numeric values, either as a pandas Series or NumPy array.
+        One-dimensional numeric values, provided as a pandas Series or NumPy array.
 
     threshold:
-        Modified Z-score threshold used to flag outliers. Values with modified
-        Z-scores greater than this threshold are flagged as outliers. The default
-        is 3.0, matching the original notebook function.
+        Modified Z-score threshold used to flag outliers. Observations with a
+        modified Z-score greater than this threshold are classified as outliers.
+        The default is 3.0.
 
     Returns
     -------
     pd.Series
         Boolean Series where True indicates an outlier.
 
+    Raises
+    ------
+    ValueError
+        If ``values`` is empty.
+
+    TypeError
+        If ``values`` is not numeric.
+
     Notes
     -----
     The modified Z-score is calculated as:
 
-        0.6745 * abs(x - median) / MAD
+    ``0.6745 * |x - median| / MAD``
 
-    If MAD is zero, the function returns False for all observations because
-    there is no usable variation for detecting outliers.
+    where MAD is the median absolute deviation.
+
+    If MAD is equal to zero, the function returns False for all observations,
+    as no variation exists to detect outliers.
+
+    This function is commonly used as a building block for spatial data cleaning,
+    particularly in :func:`fix_spatial_outliers`.
+
+    Examples
+    --------
+    Detect outliers in a numeric series:
+
+    >>> import pandas as pd
+    >>> import nfei
+    >>>
+    >>> values = pd.Series([1, 2, 2, 3, 100])
+    >>> outliers = nfei.mad_based_outlier(values)
     """
+    
     series = pd.Series(values)
 
     if series.empty:
@@ -70,11 +98,19 @@ def fix_spatial_outliers(
     show_plots: bool = True,
 ) -> pd.DataFrame:
     """
-    Detect and correct spatial coordinate outliers using longitude and latitude.
+    Detect and correct spatial coordinate outliers.
 
-    This function applies MAD-based outlier detection separately to longitude and latitude,
-    combines both outlier flags, and replaces outlying coordinates with the
-    median longitude and latitude of the non-outlying observations.
+    This function identifies and corrects outliers in geographic coordinate data
+    using the Median Absolute Deviation (MAD) method. It is designed for NFEI
+    workflows where inaccurate latitude and longitude values can distort
+    distance calculations, spatial aggregation, and density estimation.
+
+    The function detects outliers separately in latitude and longitude, then
+    combines both flags. A row is treated as a spatial outlier if either its
+    latitude or longitude is flagged as an outlier.
+
+    Outlying coordinates are replaced using the median latitude and longitude
+    calculated from non-outlier observations.
 
     Parameters
     ----------
@@ -88,35 +124,86 @@ def fix_spatial_outliers(
         Name of the longitude column.
 
     threshold:
-        Modified Z-score threshold for MAD-based outlier detection. The default
-        is 3.0, matching the original notebook.
+        Modified Z-score threshold used for MAD-based outlier detection.
+        The default is 3.0.
 
     return_outlier_flag:
-        If True, adds a boolean column identifying rows that were flagged as
+        If True, adds a boolean column indicating which rows were flagged as
         spatial outliers.
 
     outlier_col:
-        Name of the outlier flag column added when return_outlier_flag=True.
+        Name of the outlier flag column when ``return_outlier_flag=True``.
 
     show_plots:
-        If True, displays before and after scatter plots.
+        If True, displays before and after scatter plots showing detected and
+        corrected outliers.
 
     Returns
     -------
     pd.DataFrame
-        Dataframe with spatial outliers corrected. If return_outlier_flag=True,
-        an additional boolean column is included.
+        Copy of the dataframe with corrected coordinates. If
+        ``return_outlier_flag=True``, an additional boolean column is included.
+
+    Raises
+    ------
+    KeyError
+        If ``latitude`` or ``longitude`` columns are not found in the dataframe.
+
+    TypeError
+        If coordinate columns are not numeric.
+
+    ValueError
+        If all rows are flagged as outliers, making it impossible to compute
+        replacement values.
 
     Notes
     -----
-    A row is treated as a spatial outlier if either its longitude or latitude is
-    flagged as an outlier. Both longitude and latitude are then replaced using
-    the median coordinates calculated only from non-outlier rows.
+    This function applies MAD-based outlier detection independently to
+    latitude and longitude, then combines both flags.
 
-    The original notebook plotted before and after maps. Plotting is not included
-    here because package functions should avoid side effects. We can add a
-    separate plotting helper later if needed.
+    Replacement values are computed as:
+
+    - median latitude of non-outliers
+    - median longitude of non-outliers
+
+    This ensures that corrected coordinates remain within the central spatial
+    distribution of the dataset.
+
+    Plotting is optional and controlled by ``show_plots``. In production
+    workflows, it is recommended to set ``show_plots=False`` to avoid rendering
+    overhead.
+
+    Examples
+    --------
+    Correct spatial outliers in coordinate data:
+
+    >>> import pandas as pd
+    >>> import nfei
+    >>>
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         "lat": [-1.30, -1.31, -50.0],
+    ...         "lon": [36.80, 36.81, 100.0],
+    ...     }
+    ... )
+    >>> result = nfei.fix_spatial_outliers(
+    ...     df,
+    ...     latitude="lat",
+    ...     longitude="lon",
+    ...     show_plots=False,
+    ... )
+
+    Return an outlier flag column:
+
+    >>> result = nfei.fix_spatial_outliers(
+    ...     df,
+    ...     latitude="lat",
+    ...     longitude="lon",
+    ...     return_outlier_flag=True,
+    ...     show_plots=False,
+    ... )
     """
+    
     missing_cols = [col for col in [latitude, longitude] if col not in df.columns]
 
     if missing_cols:

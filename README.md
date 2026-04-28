@@ -52,7 +52,7 @@ This package does **not** hide the index inside a black-box function. Instead, i
 - Estimate population covered by radius-based vendor mapping.
 - Compute vendor density by population and land area.
 - Aggregate food environment features within spatial buffers.
-- Calculate nearest distances between food environment features.
+- Calculate nearest distances and spatial aggregations for enviromental exposure.
 - Scale indicators to a common interpretation range.
 - Detect and correct coordinate outliers using a robust MAD-based approach.
 
@@ -227,8 +227,9 @@ An N-FEI style indicator construction workflow usually involves these steps:
 3. Compute individual food environment indicators.
 4. Use spatial aggregation where indicators require environmental exposure around vendors.
 5. Scale indicators to a common range.
-6. Aggregate selected normalized indicators into a composite score.
-7. Compute final NFEI score
+6. Invert negative indicators where higher raw values represent poorer food environments.
+7. Aggregate selected normalized indicators into a composite score.
+8. Compute final NFEI score
 
 ### Step 1: Compute raw indicators
 
