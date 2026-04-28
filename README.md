@@ -1,10 +1,12 @@
 # 📦 NFEI – Nutrition-Sensitive Food Environment Index (Python Package)
 
 ![Python](https://img.shields.io/badge/python-3.9%2B-blue)
-![Package](https://img.shields.io/badge/package-nfei-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-green)
+![CI](https://github.com/tosmartak/nutrition-food-environment-index/actions/workflows/ci.yml/badge.svg)
+![Docs](https://github.com/tosmartak/nutrition-food-environment-index/actions/workflows/docs.yml/badge.svg)
 ![Status](https://img.shields.io/badge/status-active%20development-orange)
 ![Research](https://img.shields.io/badge/research--backed-N--FEI-purple)
-![License](https://img.shields.io/badge/license-MIT-lightgrey)
+<!-- ![PyPI](https://img.shields.io/pypi/v/nfei) -->
 
 `nfei` is a Python package for computing nutrition-sensitive food environment indicators from vendor survey data, food availability data, and geospatial data. It provides reusable functions for building the indicator components used in the Nutrition-Sensitive Food Environment Index (N-FEI), including food diversity, produce color diversity, vendor availability, vendor density, spatial aggregation, scaling, and validation.
 
