@@ -1,5 +1,11 @@
 # 📦 NFEI – Nutrition-Sensitive Food Environment Index (Python Package) Documentation
 
+![Python](https://img.shields.io/badge/python-3.9%2B-blue)
+![Package](https://img.shields.io/badge/package-nfei-brightgreen)
+![Status](https://img.shields.io/badge/status-active%20development-orange)
+![Research](https://img.shields.io/badge/research--backed-N--FEI-purple)
+![License](https://img.shields.io/badge/license-MIT-lightgrey)
+
 `nfei` is a Python package for computing nutrition-sensitive food environment indicators from vendor survey data, food availability data, and geospatial data. It provides reusable functions for building the indicator components used in the Nutrition-Sensitive Food Environment Index (N-FEI), including food diversity, produce color diversity, vendor availability, vendor density, spatial aggregation, scaling, and validation.
 
 This package is designed for researchers, data scientists, public-health analysts, food-system practitioners, and policy teams who want to move from raw food environment data to transparent, reproducible indicators.
@@ -45,6 +51,16 @@ This package does **not** hide the index inside a black-box function. Instead, i
 - Detect and correct coordinate outliers using a robust MAD-based approach.
 
 The package is especially useful when your raw survey data contains binary food availability columns, comma-separated produce color fields, vendor operating days or hours, latitude and longitude, vendor type, population denominators, and land-area denominators.
+
+## Citation
+
+If you use this package or the N-FEI methodology, please cite:
+
+```text
+Akingbemisilu, T. H., Jordan, I., Asiimwe, R., Bodjrenou, S., Nabuuma, D., Odongo, N., Onyango, K. O., Teferi, E., Tokeshi, C., Lundy, M., & Termote, C. (2025). The Nutrition-Sensitive Food Environment Index: A Comprehensive Approach to Assessing Food Environments in Association with Health Risks for Policy Decision Making. Journal of Sustainability, 1(1). https://doi.org/10.55845/jos-2025-1116
+```
+
+DOI: [https://doi.org/10.55845/jos-2025-1116](https://doi.org/10.55845/jos-2025-1116)
 
 ## Quick links
 
