@@ -349,11 +349,7 @@ nutrition-food-environment-index/
 
 If you use this package or the N-FEI methodology, please cite:
 
-```text
-Akingbemisilu, T. H., Jordan, I., Asiimwe, R., Bodjrenou, S., Nabuuma, D., Odongo, N., Onyango, K. O., Teferi, E., Tokeshi, C., Lundy, M., & Termote, C. (2025). The Nutrition-Sensitive Food Environment Index: A Comprehensive Approach to Assessing Food Environments in Association with Health Risks for Policy Decision Making. Journal of Sustainability, 1(1). https://doi.org/10.55845/jos-2025-1116
-```
-
-DOI: https://doi.org/10.55845/jos-2025-1116
+> Akingbemisilu, T. H., Jordan, I., Asiimwe, R., Bodjrenou, S., Nabuuma, D., Odongo, N., Onyango, K. O., Teferi, E., Tokeshi, C., Lundy, M., & Termote, C. (2025). The Nutrition-Sensitive Food Environment Index: A Comprehensive Approach to Assessing Food Environments in Association with Health Risks for Policy Decision Making. *Journal of Sustainability*, *1*(1). [https://doi.org/10.55845/jos-2025-1116](https://doi.org/10.55845/jos-2025-1116)
 
 ---
 

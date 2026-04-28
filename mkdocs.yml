@@ -6,6 +6,7 @@ repo_name: nutrition-food-environment-index
 
 theme:
   name: material
+  custom_dir: docs/overrides
   features:
     - navigation.sections
     - navigation.expand
@@ -47,3 +48,5 @@ nav:
       - Spatial: api/spatial.md
       - Scaling: api/scaling.md
       - Validation: api/validation.md
+
+copyright: Copyright &copy; 2026 Tosin H. Akingbemisilu

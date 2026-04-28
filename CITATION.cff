@@ -1,0 +1,49 @@
+cff-version: 1.2.0
+message: "If you use this package or the N-FEI methodology, please cite the manuscript below."
+title: "nfei: Nutrition-Sensitive Food Environment Index utilities for Python"
+authors:
+  - family-names: "Akingbemisilu"
+    given-names: "Tosin H."
+version: "0.1.0"
+date-released: "2026-04-28"
+url: "https://github.com/tosmartak/nutrition-food-environment-index"
+license: "MIT"
+keywords:
+  - food environment
+  - nutrition
+  - public health
+  - spatial analysis
+  - composite index
+  - Python
+
+preferred-citation:
+  type: article
+  authors:
+    - family-names: "Akingbemisilu"
+      given-names: "Tosin H."
+    - family-names: "Jordan"
+      given-names: "Irmgard"
+    - family-names: "Asiimwe"
+      given-names: "Robert"
+    - family-names: "Bodjrenou"
+      given-names: "Sam"
+    - family-names: "Nabuuma"
+      given-names: "Deborah"
+    - family-names: "Odongo"
+      given-names: "Nicanor"
+    - family-names: "Onyango"
+      given-names: "Kevin O."
+    - family-names: "Teferi"
+      given-names: "Ermias"
+    - family-names: "Tokeshi"
+      given-names: "Casey"
+    - family-names: "Lundy"
+      given-names: "Mark"
+    - family-names: "Termote"
+      given-names: "Céline"
+  title: "The Nutrition-Sensitive Food Environment Index: A Comprehensive Approach to Assessing Food Environments in Association with Health Risks for Policy Decision Making"
+  journal: "Journal of Sustainability"
+  volume: 1
+  issue: 1
+  year: 2025
+  doi: "10.55845/jos-2025-1116"

@@ -1,4 +1,4 @@
-# 📦 NFEI – Nutrition-Sensitive Food Environment Index (Python Package) Documentation
+# 📦 NFEI: Nutrition-Sensitive Food Environment Index (Python Package) Documentation
 
 ![Python](https://img.shields.io/badge/python-3.9%2B-blue)
 ![Package](https://img.shields.io/badge/package-nfei-brightgreen)
@@ -54,13 +54,11 @@ The package is especially useful when your raw survey data contains binary food 
 
 ## Citation
 
-If you use this package or the N-FEI methodology, please cite:
+If you use this software or the methodology in your research, please cite the following manuscript:
 
-```text
-Akingbemisilu, T. H., Jordan, I., Asiimwe, R., Bodjrenou, S., Nabuuma, D., Odongo, N., Onyango, K. O., Teferi, E., Tokeshi, C., Lundy, M., & Termote, C. (2025). The Nutrition-Sensitive Food Environment Index: A Comprehensive Approach to Assessing Food Environments in Association with Health Risks for Policy Decision Making. Journal of Sustainability, 1(1). https://doi.org/10.55845/jos-2025-1116
-```
 
-DOI: [https://doi.org/10.55845/jos-2025-1116](https://doi.org/10.55845/jos-2025-1116)
+> Akingbemisilu, T. H., Jordan, I., Asiimwe, R., Bodjrenou, S., Nabuuma, D., Odongo, N., Onyango, K. O., Teferi, E., Tokeshi, C., Lundy, M., & Termote, C. (2025). The Nutrition-Sensitive Food Environment Index: A Comprehensive Approach to Assessing Food Environments in Association with Health Risks for Policy Decision Making. *Journal of Sustainability*, *1*(1). [https://doi.org/10.55845/jos-2025-1116](https://doi.org/10.55845/jos-2025-1116)
+
 
 ## Quick links
 
