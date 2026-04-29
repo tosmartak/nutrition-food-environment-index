@@ -145,8 +145,6 @@ Ensures **data quality and robustness**
 - Outlier detection
 - Spatial consistency checks
 
----
-
 ## N-FEI specific indicator construction logic
 
 An N-FEI style indicator construction workflow usually involves these steps:
@@ -209,8 +207,6 @@ indicator_cols = [
 df["nfei_score"] = df[indicator_cols].mean(axis=1)
 ```
 
----
-
 ## Complete example notebook
 
 A fully reproducible simulated end-to-end workflow is provided [in the end-to-end online documentation](https://tosmartak.github.io/nutrition-food-environment-index/examples/nfei_end_to_end_example/)
@@ -228,8 +224,6 @@ The notebook demonstrates with the use of a simulated data:
 
 The example is intentionally simulated so users can run it without access to restricted or project-specific survey data.
 
----
-
 ## Important notes and data assumptions
 
 1. This package provides indicator-building functions, not a single one-size-fits-all N-FEI button.
@@ -240,8 +234,6 @@ The example is intentionally simulated so users can run it without access to res
 6. Missing values are handled explicitly where relevant.
 7. Spatial functions assume latitude and longitude are in decimal degrees unless otherwise specified.
 8. The final composite index should be assembled using indicators that are valid for the user’s specific study design.
-
----
 
 ## Repository structure
 
@@ -289,15 +281,11 @@ nutrition-food-environment-index/
 └── pyproject.toml
 ```
 
----
-
 ## Citation
 
 If you use this package or the N-FEI methodology, please cite:
 
 > Akingbemisilu, T. H., Jordan, I., Asiimwe, R., Bodjrenou, S., Nabuuma, D., Odongo, N., Onyango, K. O., Teferi, E., Tokeshi, C., Lundy, M., & Termote, C. (2025). The Nutrition-Sensitive Food Environment Index: A Comprehensive Approach to Assessing Food Environments in Association with Health Risks for Policy Decision Making. *Journal of Sustainability*, *1*(1). [https://doi.org/10.55845/jos-2025-1116](https://doi.org/10.55845/jos-2025-1116)
-
----
 
 ## Contributing
 
@@ -308,8 +296,6 @@ Contributions are welcome. Please ensure that new functionality:
 - avoids hidden assumptions about user column names
 - documents expected input format and output interpretation
 - remains aligned with food environment measurement logic
-
----
 
 ## License
 
