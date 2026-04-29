@@ -12,8 +12,6 @@
 
 This package is designed for researchers, data scientists, public-health analysts, food-system practitioners, and policy teams who want to move from raw food environment data to transparent, reproducible indicators.
 
----
-
 ## 🧠 What is the Nutrition-Sensitive Food Environment Index?
 
 The **Nutrition-Sensitive Food Environment Index (N-FEI)** is a composite food environment assessment framework developed to evaluate how the built food environment may support or constrain healthier diets and public-health outcomes. It is designed to assess food environments through a **nutrition and public health lens**, capturing how food availability, accessibility, infrastructure, and exposure to unhealthy foods interact to influence malnutrition risk.
@@ -41,8 +39,6 @@ https://doi.org/10.55845/jos-2025-1116
 
 This package does **not** hide the index inside a black-box function. Instead, it exposes the building blocks used to compute the indicators, so users can adapt the workflow to their own study design, data structure, and policy context.
 
----
-
 ## 🎯 What this package does
 
 `nfei` helps you:
@@ -59,8 +55,6 @@ This package does **not** hide the index inside a black-box function. Instead, i
 - Detect and correct coordinate outliers using a robust MAD-based approach.
 
 The package is especially useful when your raw survey data contains binary food availability columns, comma-separated produce color fields, vendor operating days or hours, latitude and longitude, vendor type, population denominators, and land-area denominators.
-
----
 
 ## ⚙️ Installation
 
@@ -81,73 +75,6 @@ To run tests:
 ```bash
 pytest
 ```
-
----
-
-## 🚀 Quick start with core example
-
-The example below uses **simulated vendor data** to demonstrate the correct implementation of `add_market_level_diversity_score`.
-
-The function expects a dictionary called `food_group_cols`. This dictionary maps each required MLDS food group to either:
-
-- one column name, or
-- a list of column names that should be combined into one food group.
-
-```python
-import pandas as pd
-import nfei
-
-# Simulated vendor-level food availability data.
-# Each food item column is coded as 1 = available and 0 = not available.
-vendors_df = pd.DataFrame(
-    {
-        "vendor_id": [1, 2, 3],
-        "grains": [1, 1, 0],
-        "roots_tubers": [0, 1, 0],
-        "legumes_pulses": [1, 0, 0],
-        "nuts_seeds": [0, 0, 1],
-        "dairy": [1, 0, 0],
-        "flesh_meat": [1, 0, 0],
-        "organ_meat": [0, 0, 0],
-        "fish": [0, 1, 0],
-        "egg": [1, 0, 0],
-        "dark_green_veg": [0, 1, 0],
-        "vita_rich_fruits": [1, 0, 0],
-        "other_veg": [1, 1, 1],
-        "other_fruits": [0, 1, 1],
-    }
-)
-
-# Implement market level diversity score function
-food_group_mapping = {
-    "grains_roots_tubers": ["grains", "roots_tubers"],
-    "legumes_pulses": "legumes_pulses",
-    "nuts_seeds": "nuts_seeds",
-    "dairy": "dairy",
-    "meat_poultry_fish": ["flesh_meat", "organ_meat", "fish"],
-    "eggs": "egg",
-    "dark_green_leafy_vegetables": "dark_green_veg",
-    "vitamin_a_rich_fruits": "vita_rich_fruits",
-    "other_vegetables": "other_veg",
-    "other_fruits": "other_fruits",
-}
-
-vendors_df = nfei.add_market_level_diversity_score(
-    vendors_df,
-    food_group_cols=food_group_mapping,
-    output_col="mlds",
-)
-
-vendors_df[["vendor_id", "mlds"]]
-```
-
-Expected interpretation:
-
-- `mlds` ranges from 0 to 10.
-- Higher values indicate that more of the required food groups are available.
-- If a food group is mapped to multiple columns, the group receives a score of 1 when at least one mapped column is available.
-
----
 
 ## 🧱 NFEI package architecture
 
@@ -286,11 +213,7 @@ df["nfei_score"] = df[indicator_cols].mean(axis=1)
 
 ## Complete example notebook
 
-A fully reproducible simulated end-to-end workflow is provided in:
-
-```text
-examples/nfei_end_to_end_example.ipynb
-```
+A fully reproducible simulated end-to-end workflow is provided [in the end-to-end online documentation](https://tosmartak.github.io/nutrition-food-environment-index/examples/nfei_end_to_end_example/)
 
 The notebook demonstrates with the use of a simulated data:
 
@@ -326,6 +249,20 @@ Suggested project structure:
 
 ```text
 nutrition-food-environment-index/
+├── docs/
+│   └── api/
+│       ├── availability.md
+│       ├── color.md
+│       ├── density.md
+│       ├── diversity.md
+│       ├── scaling.md
+│       ├── spatial.md
+│       └── validation.md
+│   ├── examples/
+│       └── nfei_end_to_end_example.ipynb
+│   ├── getting-started.md
+│   ├── methodology.md
+│   └── index.md
 ├── src/
 │   └── nfei/
 │       ├── availability.py
@@ -337,11 +274,18 @@ nutrition-food-environment-index/
 │       ├── validation.py
 │       └── __init__.py
 ├── tests/
-├── examples/
-│   └── nfei_end_to_end_example.ipynb
-├── assets/
-│   └── nfei_pipeline.png
+│   ├── test_availability.py
+│   ├── test_color.py
+│   ├── test_density.py
+│   ├── test_diversity.py
+│   ├── test_public.py
+│   ├── test_scaling.py
+│   ├── test_spatial.py
+│   └── test_validation.py
 ├── README.md
+├── CITATION.cff
+├── LICENSE
+├── mkdocs.yml
 └── pyproject.toml
 ```
 
