@@ -31,3 +31,6 @@ Thumbs.db
 # Data (important for your project)
 data/
 outputs/
+
+# Internal notebooks (data prep, scratch work)
+notebooks/internal/
