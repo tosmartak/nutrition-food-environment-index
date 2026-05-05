@@ -2,16 +2,10 @@
 
 ## Installation
 
-From PyPI, once released:
+From PyPI:
 
 ```bash
 pip install nfei
-```
-
-For local development from the repository root:
-
-```bash
-pip install -e .
 ```
 
 ## Importing the package
