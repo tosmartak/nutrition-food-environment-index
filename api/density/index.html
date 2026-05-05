@@ -1,0 +1,1419 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Nutrition-Sensitive Food Environment Index utilities for Python">
+      
+      
+      
+        <link rel="canonical" href="https://tosmartak.github.io/nfei/api/density/">
+      
+      
+        <link rel="prev" href="../diversity/">
+      
+      
+        <link rel="next" href="../spatial/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Density - N-FEI Python</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#density" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="N-FEI Python" class="md-header__button md-logo" aria-label="N-FEI Python" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            N-FEI Python
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Density
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tosmartak/nutrition-food-environment-index" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nutrition-food-environment-index
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="N-FEI Python" class="md-nav__button md-logo" aria-label="N-FEI Python" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    N-FEI Python
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tosmartak/nutrition-food-environment-index" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nutrition-food-environment-index
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../methodology/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../availability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Availability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../color/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ProColor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diversity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diversity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Density
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Density
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#nfei.density.estimate_population_from_radius" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estimate population coverage for a circular mapped area
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nfei.density.add_vendor_density" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add vendor density and distribution indicators
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spatial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spatial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/nfei_end_to_end_example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFEI end-to-end example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#nfei.density.estimate_population_from_radius" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estimate population coverage for a circular mapped area
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nfei.density.add_vendor_density" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add vendor density and distribution indicators
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="density">Density</h1>
+<p>The <strong><code>density</code></strong> module provides functions for constructing vendor density and distribution indicators used in the Nutrition-Sensitive Food Environment Index (NFEI).</p>
+<p>In food environment analysis, vendor presence is not only about the total number of vendors observed. It also matters how vendor counts relate to the population served and the size of the mapped area. A location with many vendors may still be underserved if the population is large, while a smaller location may appear well supplied if vendor availability is high relative to its population or land area.</p>
+<p>This module supports two related measurement needs:</p>
+<ul>
+<li><strong>Population-based vendor density</strong>, which relates vendor counts to the
+  population denominator of the mapped area.</li>
+<li><strong>Area-based vendor distribution</strong>, which relates vendor counts to land area
+  in square kilometres.</li>
+</ul>
+<p>The module also includes a helper function for estimating the population covered by a circular mapped area. This is particularly useful for centred food environment surveys, where vendors are mapped within a fixed radius but the population denominator must be estimated from a larger administrative area.</p>
+<p>Together, these functions help users construct interpretable density and
+distribution indicators that complement food diversity, availability, and
+spatial exposure measures within the NFEI framework.</p>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="nfei.density.estimate_population_from_radius" class="doc doc-heading">
+            Estimate population coverage for a circular mapped area
+
+
+</h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">estimate_population_from_radius</span><span class="p">(</span><span class="n">population</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">land_area_sqkm</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">radius_km</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">round_area</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">round_population</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>This function estimates the population covered by a radius-based survey
+area. It supports NFEI workflows where vendor mapping is conducted using a
+centred approach, such as mapping all vendors within a fixed radius around a
+market, neighbourhood centre, or other reference point.</p>
+<p>The function assumes that population is evenly distributed across the larger
+known administrative area. It then estimates the population within the
+circular mapped area using the radius supplied by the user.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>population</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Total population of the larger administrative area used as the
+denominator. For example, this may be the population of a city,
+municipality, arrondissement, ward, or subcounty.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>land_area_sqkm</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Total land area, in square kilometres, of the same administrative area
+represented by <code>population</code>.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>radius_km</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Radius, in kilometres, of the mapped survey area.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>round_area</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of decimal places used to round the estimated mapped area. If
+None, no rounding is applied. The default is 2.</p>
+              </div>
+            </td>
+            <td>
+                  <code>2</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>round_population</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of decimal places used to round the estimated population. If
+None, no rounding is applied. The default is 0.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="float">float</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Dictionary containing:</p>
+<ul>
+<li><code>"population_density_per_sqkm"</code>: population divided by land area.</li>
+<li><code>"area_covered_sqkm"</code>: estimated circular mapped area.</li>
+<li><code>"estimated_population"</code>: estimated population within the mapped
+  radius.</li>
+</ul>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If <code>population</code>, <code>land_area_sqkm</code>, or <code>radius_km</code> is less than or
+equal to zero.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="note" open>
+  <summary>Notes</summary>
+  <p>The estimated mapped area is calculated as:</p>
+<p><code>pi * radius_km^2</code></p>
+<p>The estimated population is calculated as:</p>
+<p><code>(population / land_area_sqkm) * area_covered_sqkm</code></p>
+<p>This is an approximation. It should be interpreted as an estimated
+denominator, especially in settings where population is not evenly
+distributed across the administrative area.</p>
+</details>
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Estimate the population covered by a 1 km radius survey area:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">nfei</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">nfei</span><span class="o">.</span><span class="n">estimate_population_from_radius</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">population</span><span class="o">=</span><span class="mi">738444</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">land_area_sqkm</span><span class="o">=</span><span class="mi">79</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">radius_km</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</code></pre></div>
+    <p>Return unrounded estimates:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">nfei</span><span class="o">.</span><span class="n">estimate_population_from_radius</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">population</span><span class="o">=</span><span class="mi">738444</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">land_area_sqkm</span><span class="o">=</span><span class="mi">79</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">radius_km</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">round_area</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">round_population</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</code></pre></div>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="nfei.density.add_vendor_density" class="doc doc-heading">
+            Add vendor density and distribution indicators
+
+
+</h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">add_vendor_density</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">group_col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">vendor_type_col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">population_col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">land_area_col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">count_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;vendor_type_pop&#39;</span><span class="p">,</span> <span class="n">per_pop_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;vendor_type_per_pop&#39;</span><span class="p">,</span> <span class="n">per_sqkm_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;vendor_type_per_sqkm&#39;</span><span class="p">,</span> <span class="n">rate_per</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">rate_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>This function computes vendor density indicators used in the NFEI workflow.
+It counts vendors by area and vendor type, then relates those counts to
+population and land area denominators.</p>
+<p>The function produces two core indicators:</p>
+<ul>
+<li>vendors per population, reflecting vendor availability relative to the
+  number of people living in the area.</li>
+<li>vendors per square kilometre, reflecting the spatial distribution or
+  concentration of vendors across the mapped area.</li>
+</ul>
+<p>These indicators help describe whether a food environment may be
+under-served, over-concentrated, or spatially dense relative to the
+population and land area being assessed.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>df</code>
+            </td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Input dataframe. Each row should represent a vendor or vendor
+observation.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>group_col</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Column identifying the geographic unit, mapped area, or administrative
+unit within which vendor counts should be computed. Examples include
+<code>"ward"</code>, <code>"subcounty"</code>, <code>"community"</code>, or <code>"survey_area"</code>.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>vendor_type_col</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Column identifying the vendor category or vendor type. Vendor counts are
+calculated separately for each combination of <code>group_col</code> and
+<code>vendor_type_col</code>.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>population_col</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Column containing the population denominator for each group. This can be
+a known administrative population or an estimated mapped-area population
+from :func:<code>estimate_population_from_radius</code>.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>land_area_col</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Column containing land area in square kilometres for each group. This
+can be a known administrative land area or an estimated mapped-area
+coverage.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>count_col</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of the output column containing the vendor count by group and
+vendor type. The default is <code>"vendor_type_pop"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;vendor_type_pop&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>per_pop_col</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of the output column containing vendors per person. The default is
+<code>"vendor_type_per_pop"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;vendor_type_per_pop&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>per_sqkm_col</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of the output column containing vendors per square kilometre. The
+default is <code>"vendor_type_per_sqkm"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;vendor_type_per_sqkm&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>rate_per</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional population scaling factor used to create an easier-to-read
+rate. For example, <code>rate_per=1000</code> creates vendors per 1,000 people.
+If None, no scaled rate column is created.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>rate_col</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional name of the scaled population density column. If not provided
+and <code>rate_per</code> is used, the column name is generated automatically
+from <code>per_pop_col</code> and <code>rate_per</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Copy of the dataframe with vendor count, vendors per population, vendors
+per square kilometre, and optionally a scaled population-rate column
+added.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="KeyError">KeyError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If any of <code>group_col</code>, <code>vendor_type_col</code>, <code>population_col</code>, or
+<code>land_area_col</code> is not found in the dataframe.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If any value in <code>population_col</code> or <code>land_area_col</code> is less than or
+equal to zero, or if <code>rate_per</code> is provided and is less than or equal
+to zero.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="note" open>
+  <summary>Notes</summary>
+  <p>Vendor counts are calculated for each unique combination of geographic group
+and vendor type. The resulting count is merged back onto the original
+dataframe, so each vendor row receives the count and density values for its
+own group and vendor type.</p>
+<p>The main calculations are:</p>
+<p><code>vendor_type_per_pop = vendor_type_count / population</code></p>
+<p><code>vendor_type_per_sqkm = vendor_type_count / land_area_sqkm</code></p>
+<p>If <code>rate_per</code> is provided, the scaled rate is calculated as:</p>
+<p><code>vendor_type_per_pop * rate_per</code></p>
+</details>
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Compute vendor density using known population and land-area denominators:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">nfei</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">{</span>
+<span class="gp">... </span>        <span class="s2">&quot;ward&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;vendor_type&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;shop&quot;</span><span class="p">,</span> <span class="s2">&quot;shop&quot;</span><span class="p">,</span> <span class="s2">&quot;kiosk&quot;</span><span class="p">,</span> <span class="s2">&quot;shop&quot;</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;Population&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">800</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;Land_area_sqkm&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="p">}</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">nfei</span><span class="o">.</span><span class="n">add_vendor_density</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">df</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">group_col</span><span class="o">=</span><span class="s2">&quot;ward&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">vendor_type_col</span><span class="o">=</span><span class="s2">&quot;vendor_type&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">population_col</span><span class="o">=</span><span class="s2">&quot;Population&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">land_area_col</span><span class="o">=</span><span class="s2">&quot;Land_area_sqkm&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</code></pre></div>
+    <p>Add an interpretable scaled rate, such as vendors per 1,000 people:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">nfei</span><span class="o">.</span><span class="n">add_vendor_density</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">df</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">group_col</span><span class="o">=</span><span class="s2">&quot;ward&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">vendor_type_col</span><span class="o">=</span><span class="s2">&quot;vendor_type&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">population_col</span><span class="o">=</span><span class="s2">&quot;Population&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">land_area_col</span><span class="o">=</span><span class="s2">&quot;Land_area_sqkm&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">rate_per</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</code></pre></div>
+    <p>Use custom output column names:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">nfei</span><span class="o">.</span><span class="n">add_vendor_density</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">df</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">group_col</span><span class="o">=</span><span class="s2">&quot;ward&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">vendor_type_col</span><span class="o">=</span><span class="s2">&quot;vendor_type&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">population_col</span><span class="o">=</span><span class="s2">&quot;Population&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">land_area_col</span><span class="o">=</span><span class="s2">&quot;Land_area_sqkm&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">count_col</span><span class="o">=</span><span class="s2">&quot;vendor_count&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">per_pop_col</span><span class="o">=</span><span class="s2">&quot;vendors_per_person&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">per_sqkm_col</span><span class="o">=</span><span class="s2">&quot;vendors_per_sqkm&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">rate_per</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">rate_col</span><span class="o">=</span><span class="s2">&quot;vendors_per_1000_people&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</code></pre></div>
+
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      
+Package Developer: Tosin Harold Akingbemisilu <br>Copyright &copy; 2025–2026
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

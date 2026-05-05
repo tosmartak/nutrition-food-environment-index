@@ -1,0 +1,1625 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Nutrition-Sensitive Food Environment Index utilities for Python">
+      
+      
+      
+        <link rel="canonical" href="https://tosmartak.github.io/nfei/api/diversity/">
+      
+      
+        <link rel="prev" href="../color/">
+      
+      
+        <link rel="next" href="../density/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Diversity - N-FEI Python</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#diversity" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="N-FEI Python" class="md-header__button md-logo" aria-label="N-FEI Python" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            N-FEI Python
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Diversity
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tosmartak/nutrition-food-environment-index" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nutrition-food-environment-index
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="N-FEI Python" class="md-nav__button md-logo" aria-label="N-FEI Python" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    N-FEI Python
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tosmartak/nutrition-food-environment-index" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nutrition-food-environment-index
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../methodology/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../availability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Availability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../color/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ProColor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diversity
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diversity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#nfei.diversity.add_market_level_diversity_score" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add Market-Level Diversity Score (MLDS)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nfei.diversity.add_unhealthy_food_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create unhealthy beverage, snack, and total unhealthy food counts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nfei.diversity.count_available_items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Count available items across selected columns
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../density/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Density
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spatial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spatial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/nfei_end_to_end_example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFEI end-to-end example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#nfei.diversity.add_market_level_diversity_score" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add Market-Level Diversity Score (MLDS)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nfei.diversity.add_unhealthy_food_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create unhealthy beverage, snack, and total unhealthy food counts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nfei.diversity.count_available_items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Count available items across selected columns
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="diversity">Diversity</h1>
+<p>The diversity module provides functions for constructing food availability and
+food diversity indicators used in the Nutrition-Sensitive Food Environment Index (NFEI).</p>
+<p>In food environment analysis, diversity is a central dimension of nutritional
+quality. A food environment that offers a wider range of food groups is more
+likely to support adequate and balanced diets, while limited diversity may
+constrain dietary choices and increase the risk of nutrient deficiencies.</p>
+<p>This module operationalizes diversity through two complementary approaches:</p>
+<ul>
+<li><strong>Healthy food diversity</strong>, measured using the Market-Level Diversity Score
+  (MLDS), which counts the availability of key food groups aligned with the
+  Minimum Dietary Diversity for Women framework.</li>
+<li><strong>Unhealthy food exposure</strong>, measured by counting the availability of selected unhealthy beverages and snacks, providing a counterpoint to healthy food diversity within the same environment.</li>
+</ul>
+<p>These indicators are designed to work with vendor- or market-level survey data where food availability is recorded as binary or numeric variables across multiple food items.</p>
+<p>The module also includes a general-purpose utility function for counting item
+availability across selected columns. This supports flexible construction of
+custom indicators beyond the predefined NFEI measures.</p>
+<p>Together, these functions enable users to construct interpretable food
+availability indicators that capture both the presence of diverse, nutrient-rich foods and the exposure to less healthy options, forming a key component of the NFEI framework.</p>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="nfei.diversity.add_market_level_diversity_score" class="doc doc-heading">
+            Add Market-Level Diversity Score (MLDS)
+
+
+</h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">add_market_level_diversity_score</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">food_group_cols</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">output_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;mlds&#39;</span><span class="p">,</span> <span class="n">fillna_value</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Add a Market-Level Diversity Score.</p>
+<p>This function computes the Market-Level Diversity Score (MLDS), a
+vendor-level food diversity indicator used in the NFEI workflow. It counts
+how many of the 10 required food groups are available for each observation.</p>
+<p>The food group structure follows the logic of the Minimum Dietary Diversity
+for Women framework, but is applied to market or vendor-level food
+availability data rather than individual dietary intake data.</p>
+<p>The required food groups are:</p>
+<ul>
+<li><code>grains_roots_tubers</code></li>
+<li><code>legumes_pulses</code></li>
+<li><code>nuts_seeds</code></li>
+<li><code>dairy</code></li>
+<li><code>meat_poultry_fish</code></li>
+<li><code>eggs</code></li>
+<li><code>dark_green_leafy_vegetables</code></li>
+<li><code>vitamin_a_rich_fruits</code></li>
+<li><code>other_vegetables</code></li>
+<li><code>other_fruits</code></li>
+</ul>
+<p>Users must explicitly map each required food group to the corresponding
+column or columns in their dataframe. If a food group is mapped to multiple
+columns, the group is scored as 1 when at least one mapped column has a
+value greater than zero.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>df</code>
+            </td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Input dataframe.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>food_group_cols</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="str">str</span> | <span title="list">list</span>[<span title="str">str</span>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Dictionary mapping each required food group to one dataframe column or
+a list of dataframe columns. The dictionary must contain exactly the 10
+required MLDS food group keys.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>output_col</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of the output MLDS column. The default is <code>"mlds"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;mlds&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>fillna_value</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span> | <span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Value used to replace missing values in mapped food availability
+columns before calculating the score.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Copy of the input dataframe with the MLDS column added.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="KeyError">KeyError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If any required MLDS food group is missing, if unknown food group keys
+are provided, or if any mapped dataframe column is not found.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If a food group is mapped to an empty list.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="TypeError">TypeError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If a food group is not mapped to either a column name or a list of
+column names.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="note" open>
+  <summary>Notes</summary>
+  <p>The output score ranges from 0 to 10, where higher values indicate that a
+vendor or market observation offers more of the required food groups.</p>
+<p>Missing values in mapped food columns are filled using <code>fillna_value</code>
+before scoring. By default, missing values are treated as 0.</p>
+<p>This function does not perform spatial aggregation. To construct
+environment-level diversity indicators, compute relevant binary food group
+columns first and then use a spatial aggregation function such as
+:func:<code>nfei.features_proximity_agg</code>.</p>
+</details>
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Standard use with one or more columns mapped to each food group:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">nfei</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">{</span>
+<span class="gp">... </span>        <span class="s2">&quot;grains&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;roots_tubers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;legumes_pulses&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;nuts_seeds&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;dairy&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;flesh_meat&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;organ_meat&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;fish&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;egg&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;dark_green_veg&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;vita_rich_fruits&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;other_veg&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;other_fruits&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="p">}</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">food_group_cols</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s2">&quot;grains_roots_tubers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;grains&quot;</span><span class="p">,</span> <span class="s2">&quot;roots_tubers&quot;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="s2">&quot;legumes_pulses&quot;</span><span class="p">:</span> <span class="s2">&quot;legumes_pulses&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;nuts_seeds&quot;</span><span class="p">:</span> <span class="s2">&quot;nuts_seeds&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;dairy&quot;</span><span class="p">:</span> <span class="s2">&quot;dairy&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;meat_poultry_fish&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;flesh_meat&quot;</span><span class="p">,</span> <span class="s2">&quot;organ_meat&quot;</span><span class="p">,</span> <span class="s2">&quot;fish&quot;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="s2">&quot;eggs&quot;</span><span class="p">:</span> <span class="s2">&quot;egg&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;dark_green_leafy_vegetables&quot;</span><span class="p">:</span> <span class="s2">&quot;dark_green_veg&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;vitamin_a_rich_fruits&quot;</span><span class="p">:</span> <span class="s2">&quot;vita_rich_fruits&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;other_vegetables&quot;</span><span class="p">:</span> <span class="s2">&quot;other_veg&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;other_fruits&quot;</span><span class="p">:</span> <span class="s2">&quot;other_fruits&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">nfei</span><span class="o">.</span><span class="n">add_market_level_diversity_score</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">df</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">food_group_cols</span><span class="o">=</span><span class="n">food_group_cols</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</code></pre></div>
+    <p>Use a custom output column name:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">nfei</span><span class="o">.</span><span class="n">add_market_level_diversity_score</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">df</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">food_group_cols</span><span class="o">=</span><span class="n">food_group_cols</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">output_col</span><span class="o">=</span><span class="s2">&quot;vendor_healthy_food_diversity&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</code></pre></div>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="nfei.diversity.add_unhealthy_food_count" class="doc doc-heading">
+            Create unhealthy beverage, snack, and total unhealthy food counts
+
+
+</h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">add_unhealthy_food_count</span><span class="p">(</span><span class="n">beverage_df</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">snack_df</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">beverage_cols</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">snack_cols</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">id_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;survey_id&#39;</span><span class="p">,</span> <span class="n">beverage_count_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;unhealthy_bev_count&#39;</span><span class="p">,</span> <span class="n">snack_count_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;unhealthy_snack_count&#39;</span><span class="p">,</span> <span class="n">output_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;unhealthy_food_count&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>This function constructs the unhealthy food exposure indicator used in the
+NFEI workflow. It counts selected unhealthy beverage items and selected
+unhealthy snack items separately, merges both counts by an identifier column,
+and then creates a total unhealthy food count.</p>
+<p>The function is designed for survey structures where beverage and snack
+availability may be stored in separate dataframes, such as separate repeat
+groups or separately cleaned item tables.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>beverage_df</code>
+            </td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Dataframe containing the identifier column and unhealthy beverage item
+columns.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>snack_df</code>
+            </td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Dataframe containing the identifier column and unhealthy snack item
+columns.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>beverage_cols</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of binary or numeric beverage columns to count.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>snack_cols</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of binary or numeric snack columns to count.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>id_col</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Identifier column used to merge beverage and snack counts. The default
+is <code>"survey_id"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;survey_id&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>beverage_count_col</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of the output beverage count column. The default is
+<code>"unhealthy_bev_count"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;unhealthy_bev_count&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>snack_count_col</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of the output snack count column. The default is
+<code>"unhealthy_snack_count"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;unhealthy_snack_count&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>output_col</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of the total unhealthy food count column. The default is
+<code>"unhealthy_food_count"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;unhealthy_food_count&#39;</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Dataframe containing the identifier column, unhealthy beverage count,
+unhealthy snack count, and total unhealthy food count.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="KeyError">KeyError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If <code>id_col</code> is not found in either <code>beverage_df</code> or <code>snack_df</code>, or
+if any column listed in <code>beverage_cols</code> or <code>snack_cols</code> is missing.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="note" open>
+  <summary>Notes</summary>
+  <p>Beverage and snack counts are merged using an outer join. This preserves
+identifiers that appear in only one of the two input dataframes. Missing
+counts after the merge are filled with 0 before calculating the total count.</p>
+<p>The total unhealthy food count is calculated as:</p>
+<p><code>unhealthy beverage count + unhealthy snack count</code></p>
+<p>Higher values represent greater availability of selected unhealthy foods.
+In an NFEI-style composite score, this indicator is typically inverted
+during scaling so that higher scaled values represent healthier food
+environments.</p>
+</details>
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Count unhealthy beverages and snacks from separate item tables:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">nfei</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">beverage_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">{</span>
+<span class="gp">... </span>        <span class="s2">&quot;survey_id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;alcoholic_beverages&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;energy_drinks&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;sweetened_beverages_fruit_juices&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="p">}</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">snack_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">{</span>
+<span class="gp">... </span>        <span class="s2">&quot;survey_id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;biscuits&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;cakes_pastries&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;candies&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;cookies&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;sweets&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="p">}</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">nfei</span><span class="o">.</span><span class="n">add_unhealthy_food_count</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">beverage_df</span><span class="o">=</span><span class="n">beverage_df</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">snack_df</span><span class="o">=</span><span class="n">snack_df</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">beverage_cols</span><span class="o">=</span><span class="p">[</span>
+<span class="gp">... </span>        <span class="s2">&quot;alcoholic_beverages&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s2">&quot;energy_drinks&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s2">&quot;sweetened_beverages_fruit_juices&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">],</span>
+<span class="gp">... </span>    <span class="n">snack_cols</span><span class="o">=</span><span class="p">[</span>
+<span class="gp">... </span>        <span class="s2">&quot;biscuits&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s2">&quot;cakes_pastries&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s2">&quot;candies&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s2">&quot;cookies&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s2">&quot;sweets&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">],</span>
+<span class="gp">... </span>    <span class="n">id_col</span><span class="o">=</span><span class="s2">&quot;survey_id&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</code></pre></div>
+    <p>Use custom output column names:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">nfei</span><span class="o">.</span><span class="n">add_unhealthy_food_count</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">beverage_df</span><span class="o">=</span><span class="n">beverage_df</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">snack_df</span><span class="o">=</span><span class="n">snack_df</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">beverage_cols</span><span class="o">=</span><span class="p">[</span>
+<span class="gp">... </span>        <span class="s2">&quot;alcoholic_beverages&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s2">&quot;energy_drinks&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s2">&quot;sweetened_beverages_fruit_juices&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">],</span>
+<span class="gp">... </span>    <span class="n">snack_cols</span><span class="o">=</span><span class="p">[</span>
+<span class="gp">... </span>        <span class="s2">&quot;biscuits&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s2">&quot;cakes_pastries&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s2">&quot;candies&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s2">&quot;cookies&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s2">&quot;sweets&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">],</span>
+<span class="gp">... </span>    <span class="n">beverage_count_col</span><span class="o">=</span><span class="s2">&quot;bev_count&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">snack_count_col</span><span class="o">=</span><span class="s2">&quot;snack_count&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">output_col</span><span class="o">=</span><span class="s2">&quot;total_unhealthy_items&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</code></pre></div>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="nfei.diversity.count_available_items" class="doc doc-heading">
+            Count available items across selected columns
+
+
+</h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">count_available_items</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">cols</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">output_col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fillna_value</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>This utility function counts the number of available items across a list of
+binary or numeric columns. It is useful when several item-level variables
+need to be summarized into a single count indicator.</p>
+<p>In the NFEI workflow, this function is used internally by
+:func:<code>add_unhealthy_food_count</code> to count unhealthy beverage and snack
+availability before combining both categories into a total unhealthy food
+count.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>df</code>
+            </td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Input dataframe.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>cols</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of binary or numeric columns to count across each row.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>output_col</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of the output count column.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>fillna_value</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span> | <span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Value used to replace missing values in <code>cols</code> before counting. The
+default is 0.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Copy of the input dataframe with the item count column added.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="KeyError">KeyError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If any column listed in <code>cols</code> is not found in the dataframe.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="note" open>
+  <summary>Notes</summary>
+  <p>The function sums values across <code>cols</code> row-wise. For binary columns, the
+result represents the number of available items. For non-binary numeric
+columns, the result is the row-wise sum of the supplied values.</p>
+<p>Missing values are filled before summation using <code>fillna_value</code>.</p>
+</details>
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Count available snack items from binary columns:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">nfei</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">{</span>
+<span class="gp">... </span>        <span class="s2">&quot;biscuits&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;cookies&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;ice_cream&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="p">}</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">nfei</span><span class="o">.</span><span class="n">count_available_items</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">df</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">cols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;biscuits&quot;</span><span class="p">,</span> <span class="s2">&quot;cookies&quot;</span><span class="p">,</span> <span class="s2">&quot;ice_cream&quot;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">output_col</span><span class="o">=</span><span class="s2">&quot;snack_count&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</code></pre></div>
+
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      
+Package Developer: Tosin Harold Akingbemisilu <br>Copyright &copy; 2025–2026
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

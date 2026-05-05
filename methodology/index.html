@@ -1,0 +1,1176 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Nutrition-Sensitive Food Environment Index utilities for Python">
+      
+      
+      
+        <link rel="canonical" href="https://tosmartak.github.io/nfei/methodology/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../getting-started/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Methodology - N-FEI Python</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#methodology" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="N-FEI Python" class="md-header__button md-logo" aria-label="N-FEI Python" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            N-FEI Python
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Methodology
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tosmartak/nutrition-food-environment-index" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nutrition-food-environment-index
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="N-FEI Python" class="md-nav__button md-logo" aria-label="N-FEI Python" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    N-FEI Python
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tosmartak/nutrition-food-environment-index" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nutrition-food-environment-index
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Methodology
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#indicator-construction-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Indicator construction workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nfei-package-architecture-and-indicator-families" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFEI package architecture and indicator families
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NFEI package architecture and indicator families">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vendor-availability-availability-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vendor availability (Availability Module)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#produce-color-diversity-procolor-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Produce color diversity (ProColor Module)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#food-diversity-diversity-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Food diversity (Diversity Module)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vendor-density-and-distribution-density-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vendor density and distribution (Density Module)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spatial-exposure-spatial-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spatial exposure (Spatial Module)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scaling-and-inversion-scaling-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scaling and inversion (Scaling Module)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#composite-score-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Composite score construction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick links
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/availability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Availability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/color/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ProColor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/diversity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diversity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/density/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Density
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/spatial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spatial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/nfei_end_to_end_example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFEI end-to-end example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#indicator-construction-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Indicator construction workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nfei-package-architecture-and-indicator-families" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFEI package architecture and indicator families
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NFEI package architecture and indicator families">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vendor-availability-availability-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vendor availability (Availability Module)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#produce-color-diversity-procolor-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Produce color diversity (ProColor Module)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#food-diversity-diversity-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Food diversity (Diversity Module)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vendor-density-and-distribution-density-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vendor density and distribution (Density Module)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spatial-exposure-spatial-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spatial exposure (Spatial Module)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scaling-and-inversion-scaling-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scaling and inversion (Scaling Module)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#composite-score-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Composite score construction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick links
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="methodology">Methodology</h1>
+<p>The <code>nfei</code> package implements reusable components for constructing Nutrition-Sensitive Food Environment Index indicators. It is based on the N-FEI methodology described in: <a href="https://doi.org/10.55845/jos-2025-1116">https://doi.org/10.55845/jos-2025-1116</a></p>
+<h2 id="indicator-construction-workflow">Indicator construction workflow</h2>
+<p>A typical N-FEI workflow follows these stages:</p>
+<ol>
+<li>Start with raw vendor, food availability, sanitation, and spatial data.</li>
+<li>Validate coordinate and required input columns.</li>
+<li>Compute individual food environment indicators.</li>
+<li>Use spatial aggregation where indicators require environmental exposure around vendors.</li>
+<li>Scale indicators to a common range.</li>
+<li>Invert negative indicators where higher raw values represent poorer food environments.</li>
+<li>Aggregate selected normalized indicators into a composite score.</li>
+<li>Compute final NFEI score</li>
+</ol>
+<h2 id="nfei-package-architecture-and-indicator-families">NFEI package architecture and indicator families</h2>
+<h3 id="vendor-availability-availability-module">Vendor availability (Availability Module)</h3>
+<p>Captures <strong>temporal access to food vendors</strong> across the day and week</p>
+<ul>
+<li>Daily availability (weighted by time of day) which captures access across different time periods within a day (morning, afternoon, evening, and night), using a weighted approach that reflects typical consumer purchasing patterns. This is implemented in the package through <a href="../api/availability/#nfei.availability.add_daily_availability"><code>add_daily_availability</code></a> function</li>
+<li>Weekly availability (days open) which captures access across days of the week, reflecting how consistently vendors operate over time. This is implemented in the package through <a href="../api/availability/#nfei.availability.add_weekly_availability"><code>add_weekly_availability</code></a> function.</li>
+<li>Overall vendor availability which summarizes temporal access to vendors by taking the row-wise mean of daily availability and weekly availability. This is implemented in the package through <a href="../api/availability/#nfei.availability.add_vendor_availability"><code>add_vendor_availability</code></a> function.</li>
+</ul>
+<p>Reflects real-world accessibility patterns where:
+- Morning to evening has higher weight than night
+- Full-day and full-week operations imply maximum availability</p>
+<h3 id="produce-color-diversity-procolor-module">Produce color diversity (ProColor Module)</h3>
+<p>Produce color diversity captures fruit and vegetable availability across six standard color groups, serving as a proxy for <strong>bioactive and micronutrient diversity</strong>.</p>
+<ul>
+<li>Mapping fruits and vegetables into six color groups  </li>
+<li>Counting the presence of these groups at the vendor or environment level.</li>
+</ul>
+<p>This complements traditional food group diversity by capturing variation in <strong>micronutrient-rich foods</strong> that may not be fully distinguished by food group classification alone.</p>
+<p>This is implemented through:</p>
+<ul>
+<li><a href="../api/color/#nfei.color.add_produce_color_diversity"><code>add_produce_color_diversity</code></a> which scans user-specified produce color columns for defined color groups and creates a score representing the number of color groups available for each observation.</li>
+<li><a href="../api/color/#nfei.color.count_unique_colors_in_columns"><code>count_unique_colors_in_columns</code></a>, a helper function to count the number of distinct produce color groups recorded for each observation across one or more dataframe columns. It is useful when produce color information is spread across multiple columns, such as separate fruit and vegetable color fields.</li>
+</ul>
+<h3 id="food-diversity-diversity-module">Food diversity (Diversity Module)</h3>
+<p>Food diversity indicators measure the availability of food groups at the vendor level. The food group structure follows the logic of the Minimum Dietary Diversity for Women framework, but is applied to market or vendor-level food availability data rather than individual dietary intake data.</p>
+<p>Includes:</p>
+<ul>
+<li>Vendor Healthy Food Diversity Score (MDD-W based)</li>
+<li>Unhealthy food exposure</li>
+</ul>
+<p>Key idea:</p>
+<blockquote>
+<p>Food diversity is a proxy for nutrient adequacy and malnutrition risk.</p>
+</blockquote>
+<p>In this package, <a href="../api/diversity/#nfei.diversity.add_market_level_diversity_score"><code>add_market_level_diversity_score</code></a> computes the Market-Level Diversity Score (MLDS), a vendor-level food diversity indicator used in the NFEI workflow. It counts how many of the 10 required food groups are available for each observation.</p>
+<h3 id="vendor-density-and-distribution-density-module">Vendor density and distribution (Density Module)</h3>
+<p>Vendor density indicators relate vendor counts to population and land area, capturing:</p>
+<ul>
+<li>Vendors per population</li>
+<li>Vendors per km²</li>
+</ul>
+<p>Used to assess:
+- Over-concentration vs under-service
+- Accessibility at population level</p>
+<p>These are implemented through:</p>
+<ul>
+<li><a href="../api/density/#nfei.density.estimate_population_from_radius"><code>estimate_population_from_radius</code></a> which estimates the population covered by a radius-based survey area. It supports NFEI workflows where vendor mapping is conducted using a centred approach, such as mapping all vendors within a fixed radius around a market, neighbourhood centre, or other reference point.</li>
+<li><a href="../api/density/#nfei.density.add_vendor_density"><code>add_vendor_density</code></a> which computes vendor density indicators used in the NFEI workflow. It counts vendors by area and vendor type, then relates those counts to population and land area denominators.</li>
+</ul>
+<h3 id="spatial-exposure-spatial-module">Spatial exposure (Spatial Module)</h3>
+<p>Some N-FEI indicators require considering what is available around a vendor, not only at the vendor, thereby capturing <strong>environmental exposure</strong>. Spatial relationships are central to food environment analysis because:</p>
+<blockquote>
+<p>consumers do not interact only with a single vendor. They interact with clusters of food vendors, nearby infrastructure, and the broader set of food options available within walking distance or another meaningful exposure radius.</p>
+</blockquote>
+<p>Spatial aggregation is implemented through:</p>
+<ul>
+<li><a href="../api/spatial/#nfei.spatial.calc_distance"><code>calc_distance</code></a>, which measures the closest distance between one set of observations and another, such as households to vendors or vendors to water and sanitation facilities.</li>
+<li><a href="../api/spatial/#nfei.spatial.features_proximity_agg"><code>features_proximity_agg</code></a>, which summarizes the features available within a defined radius around each observation, such as food group diversity within 50 metres or sanitation access within 500 metres.</li>
+</ul>
+<h3 id="scaling-and-inversion-scaling-module">Scaling and inversion (Scaling Module)</h3>
+<p>Different food environment indicators are measured in varying units and scales, such as counts, percentages, or densities, making them not directly comparable in their raw form.</p>
+<p>To address this, indicators are linearly scaled to a common range, typically 0 to 10, allowing them to be meaningfully compared and combined into a composite index. Indicators representing less desirable conditions are inverted during scaling so that higher scores consistently reflect healthier food environments.</p>
+<p>This is implemented through:</p>
+<ul>
+<li><a href="../api/scaling/#nfei.scaling.create_linear_scale"><code>create_linear_scale</code></a>, which transforms a numeric column into a standardized score using linear scaling. It can optionally adjust this normalization using an expected maximum value, invert the resulting scores, and then rescale them to a user-defined range.</li>
+</ul>
+<h3 id="validation">Validation</h3>
+<p>Data validation ensures the reliability of inputs used in N-FEI analysis, particularly for spatial and numeric variables where errors can distort results.</p>
+<p>These steps are typically applied early in the workflow to ensure that subsequent spatial, density, and exposure indicators are based on consistent and reliable data.</p>
+<p>Spatial and numeric quality checks are supported through:</p>
+<ul>
+<li><a href="../api/validation/#nfei.validation.fix_spatial_outliers"><code>fix_spatial_outliers</code></a>, which identifies and corrects outliers in geographic coordinate data using the Median Absolute Deviation (MAD) method. It is designed for NFEI workflows where inaccurate latitude and longitude values can distort distance calculations, spatial aggregation, and density estimation.</li>
+<li><a href="../api/validation/#nfei.validation.mad_based_outlier"><code>mad_based_outlier</code></a>, although a helper function, this function is used within <a href="../api/validation/#nfei.validation.fix_spatial_outliers"><code>fix_spatial_outliers</code></a> and can be used beyond NFEI framework, to detect extreme values in skewed distributions, particularly for spatial coordinates where traditional mean-based methods are not robust.</li>
+</ul>
+<h2 id="composite-score-construction">Composite score construction</h2>
+<p>The package does not force a single black-box index calculation. Instead, it gives users transparent components that can be combined according to their study design.</p>
+<p>A simple composite score can be calculated as:</p>
+<pre><code class="language-python">indicator_cols = [
+    &quot;mlds_scaled&quot;,
+    &quot;mlds_scaled_50m&quot;,
+    &quot;overall_color_scaled&quot;,
+    &quot;overall_color_scaled_50m&quot;,
+    &quot;unhealthy_food_inverted&quot;,
+    &quot;vendor_availability_scaled&quot;,
+    &quot;vendor_per_pop_scaled&quot;,
+    &quot;vendor_per_sqkm_scaled&quot;,
+    &quot;access_to_sanitatn&quot;
+]
+
+df[&quot;nfei_score&quot;] = df[indicator_cols].mean(axis=1)
+</code></pre>
+<h2 id="quick-links">Quick links</h2>
+<ul>
+<li><a href="../getting-started/">Getting started</a>: installation, imports, and first examples.</li>
+<li>API reference: <ul>
+<li><a href="../api/availability/">Availability Module</a></li>
+<li><a href="../api/color/">ProColor Module</a></li>
+<li><a href="../api/density/">Diversity Module</a></li>
+<li><a href="../api/density/">Density Module</a></li>
+<li><a href="../api/spatial/">Spatial Module</a></li>
+<li><a href="../api/scaling/">Scaling Module</a></li>
+<li><a href="../api/validation/">Validation Module</a></li>
+</ul>
+</li>
+<li><a href="../examples/nfei_end_to_end_example/">End-to-end example</a>: executable end-to-end workflows.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      
+Package Developer: Tosin Harold Akingbemisilu <br>Copyright &copy; 2025–2026
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

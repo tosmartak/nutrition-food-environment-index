@@ -1,0 +1,1771 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Nutrition-Sensitive Food Environment Index utilities for Python">
+      
+      
+      
+        <link rel="canonical" href="https://tosmartak.github.io/nfei/api/spatial/">
+      
+      
+        <link rel="prev" href="../density/">
+      
+      
+        <link rel="next" href="../scaling/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Spatial - N-FEI Python</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#spatial" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="N-FEI Python" class="md-header__button md-logo" aria-label="N-FEI Python" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            N-FEI Python
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Spatial
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tosmartak/nutrition-food-environment-index" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nutrition-food-environment-index
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="N-FEI Python" class="md-nav__button md-logo" aria-label="N-FEI Python" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    N-FEI Python
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tosmartak/nutrition-food-environment-index" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nutrition-food-environment-index
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../methodology/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../availability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Availability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../color/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ProColor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diversity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diversity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../density/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Density
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spatial
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spatial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#nfei.spatial.calc_distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nearest distance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nfei.spatial.features_proximity_agg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buffer-based feature aggregation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nfei.spatial.haversine_vectorized" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Haversine distance
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/nfei_end_to_end_example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFEI end-to-end example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#nfei.spatial.calc_distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nearest distance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nfei.spatial.features_proximity_agg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buffer-based feature aggregation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nfei.spatial.haversine_vectorized" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Haversine distance
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="spatial">Spatial</h1>
+<p>The spatial module provides functions for distance calculation and buffer-based
+spatial aggregation used in the Nutrition-Sensitive Food Environment Index
+(NFEI).</p>
+<p>Spatial relationships are central to food environment analysis because consumers
+do not interact only with a single vendor. They interact with clusters of food
+vendors, nearby infrastructure, and the broader set of food options available
+within walking distance or another meaningful exposure radius.</p>
+<p>This module supports two main spatial tasks:</p>
+<ul>
+<li><strong>Nearest-distance calculation</strong>, which measures the closest distance between
+  one set of observations and another, such as households to vendors or vendors
+  to water and sanitation facilities.</li>
+<li><strong>Buffer-based feature aggregation</strong>, which summarizes the features available
+  within a defined radius around each observation, such as food group diversity
+  within 50 metres or sanitation access within 500 metres.</li>
+</ul>
+<p>The module is designed to accept ordinary pandas DataFrames with longitude and
+latitude columns. For Buffer-based feature aggregation, coordinates are projected
+internally before spatial operations are performed, so users can work with
+decimal-degree input data while still using metre-based buffers.</p>
+<p>These functions help users construct environment-level exposure indicators that
+complement vendor-level food diversity, availability, density, and infrastructure
+measures in the NFEI workflow.</p>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="nfei.spatial.calc_distance" class="doc doc-heading">
+            Nearest distance
+
+
+</h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">calc_distance</span><span class="p">(</span><span class="n">data1</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">data2</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">include_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">col_title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;distance_km&#39;</span><span class="p">,</span> <span class="n">data1_lon</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;_longitude&#39;</span><span class="p">,</span> <span class="n">data1_lat</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;_latitude&#39;</span><span class="p">,</span> <span class="n">data2_lon</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;_longitude&#39;</span><span class="p">,</span> <span class="n">data2_lat</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;_latitude&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Calculate nearest distance between two sets of observations.</p>
+<p>This function calculates the nearest distance from each observation in
+<code>data1</code> to observations in <code>data2</code> using longitude and latitude
+coordinates. It supports NFEI workflows where users need to measure proximity
+between food environment features, such as households and vendors, vendors
+and water points, or vendors and sanitation facilities.</p>
+<p>For each row in <code>data1</code>, the function computes the Haversine distance to
+all rows in <code>data2</code> and keeps the closest distance.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>data1</code>
+            </td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Primary dataframe. Each row receives the nearest distance to
+observations in <code>data2</code>.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>data2</code>
+            </td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Secondary dataframe containing candidate destination points.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>include_col</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional column from <code>data2</code> to bring back from the nearest
+observation. For example, if <code>include_col="vendor_type"</code>, the returned
+dataframe receives a column named <code>"closest_vendor_type"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>col_title</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of the distance column to add. Distances are returned in
+kilometres. The default is <code>"distance_km"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;distance_km&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>data1_lon</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Longitude column name in <code>data1</code>. The default is <code>"_longitude"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;_longitude&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>data1_lat</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Latitude column name in <code>data1</code>. The default is <code>"_latitude"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;_latitude&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>data2_lon</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Longitude column name in <code>data2</code>. The default is <code>"_longitude"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;_longitude&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>data2_lat</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Latitude column name in <code>data2</code>. The default is <code>"_latitude"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;_latitude&#39;</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Copy of <code>data1</code> with a nearest-distance column added. If
+<code>include_col</code> is provided, a <code>"closest_{include_col}"</code> column is
+also added.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="KeyError">KeyError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If required longitude or latitude columns are missing from either
+dataframe, or if <code>include_col</code> is provided but not found in <code>data2</code>.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If <code>data2</code> contains no observations.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="note" open>
+  <summary>Notes</summary>
+  <p>This function uses geographic coordinates directly through the Haversine
+formula and returns distances in kilometres.</p>
+<p>It is appropriate for nearest-neighbour distance calculations. It does not
+perform buffer-based spatial joins. For buffer-based aggregation, use
+:func:<code>features_proximity_agg</code>.</p>
+</details>
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Calculate the nearest vendor distance for each household:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">nfei</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">households</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">{</span>
+<span class="gp">... </span>        <span class="s2">&quot;household_id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;_longitude&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">36.8001</span><span class="p">,</span> <span class="mf">36.9000</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;_latitude&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.3001</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.4000</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="p">}</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vendors</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">{</span>
+<span class="gp">... </span>        <span class="s2">&quot;vendor_id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;vendor_type&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;shop&quot;</span><span class="p">,</span> <span class="s2">&quot;kiosk&quot;</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;_longitude&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">36.8000</span><span class="p">,</span> <span class="mf">36.8500</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;_latitude&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.3000</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.3500</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="p">}</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">nfei</span><span class="o">.</span><span class="n">calc_distance</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">data1</span><span class="o">=</span><span class="n">households</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">data2</span><span class="o">=</span><span class="n">vendors</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">include_col</span><span class="o">=</span><span class="s2">&quot;vendor_type&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</code></pre></div>
+    <p>Use custom coordinate column names:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">nfei</span><span class="o">.</span><span class="n">calc_distance</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">data1</span><span class="o">=</span><span class="n">households</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;_longitude&quot;</span><span class="p">:</span> <span class="s2">&quot;lon&quot;</span><span class="p">,</span> <span class="s2">&quot;_latitude&quot;</span><span class="p">:</span> <span class="s2">&quot;lat&quot;</span><span class="p">}</span>
+<span class="gp">... </span>    <span class="p">),</span>
+<span class="gp">... </span>    <span class="n">data2</span><span class="o">=</span><span class="n">vendors</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;_longitude&quot;</span><span class="p">:</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;_latitude&quot;</span><span class="p">:</span> <span class="s2">&quot;y&quot;</span><span class="p">}</span>
+<span class="gp">... </span>    <span class="p">),</span>
+<span class="gp">... </span>    <span class="n">data1_lon</span><span class="o">=</span><span class="s2">&quot;lon&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">data1_lat</span><span class="o">=</span><span class="s2">&quot;lat&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">data2_lon</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">data2_lat</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">col_title</span><span class="o">=</span><span class="s2">&quot;nearest_vendor_km&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</code></pre></div>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="nfei.spatial.features_proximity_agg" class="doc doc-heading">
+            Buffer-based feature aggregation
+
+
+</h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">features_proximity_agg</span><span class="p">(</span><span class="n">df1</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">df2</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">buffer</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">col_to_agg</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">self_count</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">include_sum</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="n">df1_lat</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;_latitude&#39;</span><span class="p">,</span> <span class="n">df1_lon</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;_longitude&#39;</span><span class="p">,</span> <span class="n">df2_lat</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;_latitude&#39;</span><span class="p">,</span> <span class="n">df2_lon</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;_longitude&#39;</span><span class="p">,</span> <span class="n">overall_title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Overall_aggregate&#39;</span><span class="p">,</span> <span class="n">drop_col_to_agg</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">input_crs</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">=</span> <span class="s1">&#39;EPSG:4326&#39;</span><span class="p">,</span> <span class="n">projected_crs</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Aggregate features within a spatial buffer.</p>
+<p>This function aggregates features from <code>df2</code> within a specified buffer
+around each observation in <code>df1</code>. It supports NFEI workflows where users
+need to construct environment-level indicators, such as food diversity
+within 50 metres of each vendor or access to sanitation facilities within a
+specified distance.</p>
+<p>The function accepts ordinary pandas DataFrames with longitude and latitude
+columns. Internally, it converts the data to projected GeoDataFrames, creates
+buffers around <code>df1</code> points, performs a spatial join, and aggregates
+matching <code>df2</code> observations within each buffer.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>df1</code>
+            </td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Primary dataframe. A buffer is created around each row in this
+dataframe, and aggregated values are returned at this level.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>df2</code>
+            </td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Secondary dataframe containing the features to aggregate within each
+buffer.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>buffer</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Buffer radius in metres.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>col_to_agg</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of columns in <code>df2</code> to aggregate. Required when <code>method</code> is
+<code>"sum"</code>, <code>"mean"</code>, or <code>"max"</code>. Not required when
+<code>method="count"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>self_count</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If False and <code>df1</code> and <code>df2</code> are the same object, each row is
+excluded from its own buffer before aggregation. If True, each row can
+contribute to its own buffer.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>include_sum</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If True and <code>method</code> is not <code>"count"</code>, adds an overall aggregate
+column by summing the aggregated columns row-wise.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>method</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Aggregation method. Must be one of <code>"sum"</code>, <code>"mean"</code>, <code>"max"</code>,
+or <code>"count"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;sum&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>df1_lat</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Latitude column name in <code>df1</code>. The default is <code>"_latitude"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;_latitude&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>df1_lon</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Longitude column name in <code>df1</code>. The default is <code>"_longitude"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;_longitude&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>df2_lat</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Latitude column name in <code>df2</code>. The default is <code>"_latitude"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;_latitude&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>df2_lon</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Longitude column name in <code>df2</code>. The default is <code>"_longitude"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;_longitude&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>overall_title</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of the output count column when <code>method="count"</code>, or the overall
+aggregate column when <code>include_sum=True</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;Overall_aggregate&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>drop_col_to_agg</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If True, drops the individual aggregated columns and keeps only
+<code>overall_title</code>. This is only valid when <code>include_sum=True</code> and
+<code>method</code> is not <code>"count"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>input_crs</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | <span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Coordinate reference system of the input longitude and latitude
+coordinates. The default is <code>"EPSG:4326"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;EPSG:4326&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>projected_crs</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | <span title="int">int</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Projected coordinate reference system used for buffer and distance
+operations. If None, a local UTM CRS is estimated from the input
+coordinates.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Copy of <code>df1</code> with buffer-based aggregate columns added.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If <code>buffer</code> is less than or equal to zero, if <code>method</code> is invalid,
+if <code>col_to_agg</code> is missing when required, or if
+<code>drop_col_to_agg=True</code> is used without <code>include_sum=True</code> for
+non-count aggregation.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="KeyError">KeyError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If coordinate columns are missing, or if any column listed in
+<code>col_to_agg</code> is not found in <code>df2</code>.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="note" open>
+  <summary>Notes</summary>
+  <p>The <code>buffer</code> argument is in metres because the function performs buffer
+operations in a projected CRS.</p>
+<p>When <code>df1</code> and <code>df2</code> are the same object, <code>self_count=False</code> excludes
+each observation from its own buffer. This is useful for neighbour-only
+calculations. Use <code>self_count=True</code> when the focal observation should be
+included in its own environment, such as when computing food diversity
+available within a vendor's immediate environment including the vendor
+itself.</p>
+<p>Output column names for non-count aggregation are generated by appending
+<code>"_within_{buffer}m"</code> to aggregated column names.</p>
+<p>Rows with no matching features within the buffer receive 0 in the added
+aggregate columns.</p>
+</details>
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Count vendors within 100 metres of each household:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">nfei</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">households</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">{</span>
+<span class="gp">... </span>        <span class="s2">&quot;household_id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;_longitude&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">36.8001</span><span class="p">,</span> <span class="mf">36.9000</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;_latitude&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.3001</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.4000</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="p">}</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vendors</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">{</span>
+<span class="gp">... </span>        <span class="s2">&quot;vendor_id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;_longitude&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">36.8000</span><span class="p">,</span> <span class="mf">36.8500</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;_latitude&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.3000</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.3500</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="p">}</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">nfei</span><span class="o">.</span><span class="n">features_proximity_agg</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">df1</span><span class="o">=</span><span class="n">households</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">df2</span><span class="o">=</span><span class="n">vendors</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">buffer</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">method</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">overall_title</span><span class="o">=</span><span class="s2">&quot;vendors_within_100m&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</code></pre></div>
+    <p>Sum food-group availability within 50 metres of each vendor:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">vendors</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">{</span>
+<span class="gp">... </span>        <span class="s2">&quot;vendor_id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;_longitude&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">36.8000</span><span class="p">,</span> <span class="mf">36.8002</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;_latitude&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.3000</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.3002</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;grains&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;legumes_pulses&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;other_vegetables&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="p">}</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">nfei</span><span class="o">.</span><span class="n">features_proximity_agg</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">df1</span><span class="o">=</span><span class="n">vendors</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">df2</span><span class="o">=</span><span class="n">vendors</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">buffer</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">col_to_agg</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;grains&quot;</span><span class="p">,</span> <span class="s2">&quot;legumes_pulses&quot;</span><span class="p">,</span> <span class="s2">&quot;other_vegetables&quot;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">method</span><span class="o">=</span><span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">self_count</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</code></pre></div>
+    <p>Create a single overall aggregate column and drop individual columns:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">nfei</span><span class="o">.</span><span class="n">features_proximity_agg</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">df1</span><span class="o">=</span><span class="n">vendors</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">df2</span><span class="o">=</span><span class="n">vendors</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">buffer</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">col_to_agg</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;grains&quot;</span><span class="p">,</span> <span class="s2">&quot;legumes_pulses&quot;</span><span class="p">,</span> <span class="s2">&quot;other_vegetables&quot;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">method</span><span class="o">=</span><span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">self_count</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">include_sum</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">overall_title</span><span class="o">=</span><span class="s2">&quot;food_group_items_within_50m&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">drop_col_to_agg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</code></pre></div>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="nfei.spatial.haversine_vectorized" class="doc doc-heading">
+            Haversine distance
+
+
+</h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">haversine_vectorized</span><span class="p">(</span><span class="n">lon1</span><span class="p">,</span> <span class="n">lat1</span><span class="p">,</span> <span class="n">lon2</span><span class="p">,</span> <span class="n">lat2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Calculate great-circle distances using the Haversine formula.</p>
+<p>This function computes the distance between longitude and latitude
+coordinates using the Haversine formula. It is used in the NFEI spatial
+workflow for direct distance calculations on geographic coordinates without
+requiring users to first convert their data into GeoDataFrames.</p>
+<p>Distances are returned in kilometres.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>lon1</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Longitude of the first point or points, in decimal degrees.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>lat1</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Latitude of the first point or points, in decimal degrees.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>lon2</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Longitude of the second point or points, in decimal degrees.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>lat2</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Latitude of the second point or points, in decimal degrees.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="numpy.ndarray">ndarray</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Great-circle distance or distances in kilometres.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="note" open>
+  <summary>Notes</summary>
+  <p>Input coordinates must be in decimal degrees. The function internally
+converts coordinates to radians before applying the Haversine formula.</p>
+<p>This function is most useful for direct point-to-point or one-to-many
+distance calculations. For buffer-based exposure indicators, use
+:func:<code>features_proximity_agg</code>.</p>
+</details>
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Calculate the distance between two points:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">nfei</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">distance</span> <span class="o">=</span> <span class="n">nfei</span><span class="o">.</span><span class="n">haversine_vectorized</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">lon1</span><span class="o">=</span><span class="mf">36.8000</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">lat1</span><span class="o">=-</span><span class="mf">1.3000</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">lon2</span><span class="o">=</span><span class="mf">36.8002</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">lat2</span><span class="o">=-</span><span class="mf">1.3002</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</code></pre></div>
+    <p>Calculate distances from one point to several candidate points:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">distances</span> <span class="o">=</span> <span class="n">nfei</span><span class="o">.</span><span class="n">haversine_vectorized</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">lon1</span><span class="o">=</span><span class="mf">36.8000</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">lat1</span><span class="o">=-</span><span class="mf">1.3000</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">lon2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">36.8002</span><span class="p">,</span> <span class="mf">36.9000</span><span class="p">]),</span>
+<span class="gp">... </span>    <span class="n">lat2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">1.3002</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.4000</span><span class="p">]),</span>
+<span class="gp">... </span><span class="p">)</span>
+</code></pre></div>
+
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      
+Package Developer: Tosin Harold Akingbemisilu <br>Copyright &copy; 2025–2026
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
