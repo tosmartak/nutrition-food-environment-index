@@ -58,13 +58,13 @@ The package is especially useful when your raw survey data contains binary food 
 
 ## ⚙️ Installation
 
-From PyPI, once released:
+From PyPI:
 
 ```bash
 pip install nfei
 ```
 
-For local development from the repository root:
+<!-- For local development from the repository root:
 
 ```bash
 pip install -e .
@@ -74,6 +74,11 @@ To run tests:
 
 ```bash
 pytest
+``` -->
+
+## Importing the package
+```python
+import nfei
 ```
 
 ## 🧱 NFEI package architecture
