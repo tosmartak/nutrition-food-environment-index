@@ -2,6 +2,8 @@
 nfei: Nutrition Food Environment Index utilities.
 """
 
+__version__ = "0.1.0"
+
 from nfei.availability import (
     add_daily_availability,
     add_vendor_availability,
