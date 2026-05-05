@@ -38,8 +38,6 @@ nav:
   - Home: index.md
   - Methodology: methodology.md
   - Getting started: getting-started.md
-  - Examples:
-      - End-to-end NFEI workflow: examples/nfei_end_to_end_example.ipynb
   - API reference:
       - Availability: api/availability.md
       - ProColor: api/color.md
@@ -48,5 +46,7 @@ nav:
       - Spatial: api/spatial.md
       - Scaling: api/scaling.md
       - Validation: api/validation.md
+  - Examples:
+      - End-to-end NFEI workflow: examples/nfei_end_to_end_example.ipynb
 
 copyright: Copyright &copy; 2026 Tosin H. Akingbemisilu

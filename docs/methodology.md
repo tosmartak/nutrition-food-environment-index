@@ -126,7 +126,7 @@ df["nfei_score"] = df[indicator_cols].mean(axis=1)
 
 ## Quick links
 
-- [End-to-end example](examples/nfei_end_to_end_example.ipynb): executable end-to-end workflows.
+- [Getting started](getting-started.md): installation, imports, and first examples.
 - API reference: 
     - [Availability Module](api/availability.md)
     - [ProColor Module](api/color.md)
@@ -135,3 +135,4 @@ df["nfei_score"] = df[indicator_cols].mean(axis=1)
     - [Spatial Module](api/spatial.md)
     - [Scaling Module](api/scaling.md)
     - [Validation Module](api/validation.md)
+- [End-to-end example](examples/nfei_end_to_end_example.ipynb): executable end-to-end workflows.

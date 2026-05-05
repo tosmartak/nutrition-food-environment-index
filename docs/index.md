@@ -67,7 +67,6 @@ If you use this software or the methodology in your research, please cite the fo
 
 - [Methodology](methodology.md): how the package maps to the N-FEI indicator workflow.
 - [Getting started](getting-started.md): installation, imports, and first examples.
-- [End-to-end example](examples/nfei_end_to_end_example.ipynb): executable end-to-end workflows.
 - API reference: 
     - [Availability Module](api/availability.md)
     - [ProColor Module](api/color.md)
@@ -76,3 +75,4 @@ If you use this software or the methodology in your research, please cite the fo
     - [Spatial Module](api/spatial.md)
     - [Scaling Module](api/scaling.md)
     - [Validation Module](api/validation.md)
+- [End-to-end example](examples/nfei_end_to_end_example.ipynb): executable end-to-end workflows.
